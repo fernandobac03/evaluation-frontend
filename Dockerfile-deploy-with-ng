@@ -1,0 +1,28 @@
+#FROM node:latest
+FROM alpine:latest
+LABEL authors="Fernando Baculima"
+
+RUN mkdir application
+WORKDIR /application
+COPY /application/ /application/
+RUN ls
+
+RUN apk update
+RUN apk add --update nodejs nodejs-npm
+RUN npm -v
+RUN npm install -g node-gyp webpack-dev-server webpack typescript @angular/cli
+Run npm i @types/jest
+
+RUN npm install
+#RUN npm run build
+
+#FROM nginx:alpine
+#COPY --from=node ./dist/evaluation /usr/share/nginx/html
+
+EXPOSE 4200
+RUN ls
+COPY /application/start.sh .
+RUN chmod +x /application/start.sh
+RUN ls
+ENTRYPOINT ["/application/start.sh"]
+CMD ["ng serve"]
