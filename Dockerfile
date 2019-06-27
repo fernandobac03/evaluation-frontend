@@ -39,6 +39,8 @@ ADD /sameAs-frontend/dist/evaluation/ /opt/tomcat/webapps/ROOT/
 #Changing default tomcat port
 RUN sed 's/8080/4200/g' /opt/tomcat/conf/server.xml > newserver.xml
 RUN mv newserver.xml /opt/tomcat/conf/server.xml
+RUN sed 's%<base href="/">%<base href="/appevaluation/"%g' /opt/tomcat/webapps/ROOT/index.html > newmain.html
+RUN mv newmain.html /opt/tomcat/webapps/ROOT/index.html
 
 
 EXPOSE 4200
