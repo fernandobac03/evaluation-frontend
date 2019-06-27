@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM ubuntu:latest
 MAINTAINER Fernando Baculima
 
 
@@ -6,7 +6,7 @@ MAINTAINER Fernando Baculima
 
 ENV TOMCATVER 7.0.73
 
-RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
+#RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
 
 RUN apt-get -q -y update && apt-get -q -y upgrade && apt-get -q -y install \ 
 				libcups2 \
@@ -16,7 +16,13 @@ RUN apt-get -q -y update && apt-get -q -y upgrade && apt-get -q -y install \
 				libpq-dev \
 				&& apt-get -q clean
 
-RUN (apt-get update && DEBIAN_FRONTEND=noninteractive apt install -y -t jessie-backports  openjdk-8-jre-headless ca-certificates-java)
+#RUN (apt-get update && DEBIAN_FRONTEND=noninteractive apt install -y -t jessie-backports  openjdk-8-jre-headless ca-certificates-java)
+
+RUN apt-get install -y software-properties-common
+RUN apt-get update && apt-get upgrade
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jre
 
 RUN (wget -O /tmp/tomcat7.tar.gz http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCATVER}/bin/apache-tomcat-${TOMCATVER}.tar.gz && \
   cd /opt && \
