@@ -26,7 +26,7 @@ export class AppService {
 
     //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
     //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-    return this.http.post(`http://10.42.0.1:5000/geolinkeddata/service/storage/add`, obj, httpOptions)
+    return this.http.post(`http://201.159.223.25:8081/geolinkeddata/service/storage/add`, obj, httpOptions)
   }
 
   getPairs(param) {
@@ -34,7 +34,7 @@ export class AppService {
       .set('param', '1')
     return this
       .http
-      .get('http://10.42.0.1:5000/geolinkeddata/service/storage/get', { params } );
+      .get('http://201.159.223.25:8081/geolinkeddata/service/storage/get', { params } );
     //.get('http://192.168.100.6:5000/geolinkeddata/service/storage/get', { params } );
   }
 
@@ -57,7 +57,7 @@ export class AppService {
 
     //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
     //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-    return this.http.post(`http://10.42.0.1:5000/geolinkeddata/service/storage/addevaluation`, obj, httpOptions)
+    return this.http.post(`http://201.159.223.25:8081/geolinkeddata/service/storage/addevaluation`, obj, httpOptions)
   }
 
   private messageSource = new BehaviorSubject('No Persona_ID');

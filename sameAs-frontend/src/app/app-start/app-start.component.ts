@@ -19,8 +19,8 @@ export class AppStartComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private appser: AppService ) { }
   addPerson(escuela, edad, genero) {
     this.appser.addPerson(escuela, edad, genero).subscribe(
-      /*res => { console.log("Response: "); console.log(res.body); this.appser.changeMessage(res.body.persona_id)}*/
-       res => { console.log("Response: ")}
+      res => { console.log("Response: "); console.log(res['body']); this.appser.changeMessage(res['body']['persona_id'])}
+       /*res => { console.log("Response: ")}*/
   )
   }
 

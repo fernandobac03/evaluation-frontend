@@ -37,7 +37,7 @@ export class AppIndividualComponent implements OnInit {
         if (r == true) {
           this.appser.setEvaluation(this.selected_evaluacion, this.persona_id, this.selected_id_par).subscribe(res => {
             console.log("Response: ");
-            console.log(res) /*res.body*/
+            console.log(res['body'])
           })
           this.appser.sumEvaluation(this.num_evaluation + 1);
           this.ngOnInit();
