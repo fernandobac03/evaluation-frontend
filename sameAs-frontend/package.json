@@ -20,10 +20,13 @@
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
+    "@types/jsonld": "github:types/jsonld",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
+    "jsonld": "^1.6.2",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
+    "sparql-transformer": "^2.0.5",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

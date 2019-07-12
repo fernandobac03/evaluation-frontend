@@ -13,6 +13,10 @@ import { AppEvaluationComponent } from './app-evaluation/app-evaluation.componen
 import { AppIndividualComponent } from './app-individual/app-individual.component';
 import { AppFinalComponent } from './app-final/app-final.component';
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,

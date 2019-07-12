@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpHeaders, HttpRequest,} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+
+import sparqlTransformer from 'sparql-transformer';
+import {isArray} from "util";
+import {DefaultUrlSerializer, Router} from "@angular/router";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  uri = 'http://localhost:4000/products';
+  /*baseuri = 'http://192.168.100.6:5000';*/
+  baseuri = 'http://201.159.223.25:8081';
 
-  constructor(private http: HttpClient) { }
+  geoecuri = 'http://linkeddata.ec/repositories/test'   /*-> Será tipo 1*/
+  dbpediauri = 'http://dbpedia.org/sparql'              /*-> Será tipo 2*/
+
+  endpointuri = this.geoecuri
+  constructor(private http: HttpClient ) { }
   addPerson(escuela, edad, genero) {
     const obj = {
       escuela,
@@ -23,21 +33,16 @@ export class AppService {
       }),
       observe: 'response',
     };
-
-    //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
-    //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-    return this.http.post(`http://201.159.223.25:8081/geolinkeddata/service/storage/add`, obj, httpOptions)
+    return this.http.post(this.baseuri + `/geolinkeddata/service/storage/add`, obj, httpOptions)
   }
 
   getPairs(param) {
     const params = new HttpParams()
-      .set('param', '1')
+      .set('param', param)
     return this
       .http
-      .get('http://201.159.223.25:8081/geolinkeddata/service/storage/get', { params } );
-    //.get('http://192.168.100.6:5000/geolinkeddata/service/storage/get', { params } );
+      .get( this.baseuri + '/geolinkeddata/service/storage/get', { params } );
   }
-
 
   setEvaluation(evaluacion, id_persona, id_par)
   {
@@ -54,11 +59,34 @@ export class AppService {
       }),
       observe: 'response',
     };
-
-    //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
-    //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-    return this.http.post(`http://201.159.223.25:8081/geolinkeddata/service/storage/addevaluation`, obj, httpOptions)
+    return this.http.post(this.baseuri + '/geolinkeddata/service/storage/addevaluation', obj, httpOptions);
   }
+
+
+  getFromTripleStore(endpointType, param) {
+    let headers = new HttpHeaders({
+      'Content-type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/ld+json'
+    });
+
+    const params = new HttpParams()
+      .set('query', param).set('Content-Type', 'x-www-form-urlencoded; charset=UTF-8')
+    const httpOptions: { headers; observe; } = {
+      headers: new HttpHeaders({
+        Accept: 'application/sparql-results+json'
+      }),
+      observe: 'response',
+    };
+    if (endpointType==1)
+      return this.http.post(this.geoecuri, params, httpOptions);
+    else
+    if (endpointType==2)
+      return this.http.post(this.dbpediauri, params, httpOptions);
+
+  }
+
+
+
 
   private messageSource = new BehaviorSubject('No Persona_ID');
   currentMessage = this.messageSource.asObservable();
@@ -71,5 +99,28 @@ export class AppService {
   sumEvaluation(num_evaluation: number) {
     this.numSource.next(num_evaluation)
   }
+
+  private datosPantalla = new BehaviorSubject([]);
+  currentdatosPantalla = this.datosPantalla.asObservable();
+  datosPantallaF(newdata: string[]) {
+    this.datosPantalla.next(newdata)
+  }
+
+  stringFormat() {
+    // The string containing the format items (e.g. "{0}")
+    // will and always has to be the first argument.
+    var theString = arguments[0];
+
+    // start with the second argument (i = 1)
+    for (var i = 1; i < arguments.length; i++) {
+      // "gm" = RegEx options for Global search (more than one instance)
+      // and for Multiline search
+      var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
+      theString = theString.replace(regEx, arguments[i]);
+    }
+
+    return theString;
+  }
+
 
 }

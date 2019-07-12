@@ -12,11 +12,35 @@
   <tbody>
   <tr class="d-flex" *ngFor="let pair of pairs">
     <td>{{ pair.id }}</td>
-    <td class="col-sm-3"><a href="{{ pair.uri_a }}" target="_blank">{{ pair.uri_a }}</a></td>
-    <td class="col-sm-3"><a href="{{ pair.uri_b }}" target="_blank">{{ pair.uri_b }}</a></td>
+    <td class="col-sm-3"><a href="{{ pair.uri_a }}" target="_blank">Recurso A</a></td>
+    <td class="col-sm-3"><a href="{{ pair.uri_b }}" target="_blank">Recurso B</a></td>
     <td><button class="opcion" (click) = "setDecision('Igual',1, pair.id)"  value="1">Iguales</button></td>
     <td><button class="opcion" (click) = "setDecision('No son Igual',2, pair.id)"  value="2">No son Iguales</button></td>
     <td><button class="opcion" (click) = "setDecision('No lo se',3, pair.id)"  value="3">No lo sé</button></td>
+    <!--<td><a [routerLink]="['/edit', pair.id]" class="btn btn-primary">Edit</a></td>
+      <td><a [routerLink]="" class="btn btn-danger">Delete</a></td>-->
+  </tr>
+  <tr class="d-flex" >
+    <td>
+      <table>
+        <tbody>
+        <tr *ngFor="let result of datos[0]">
+          <td>{{ result['property'] }}<td>
+          <td class="justificado">{{ result['value'] }} </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tbody>
+        <tr *ngFor="let result of datos[1]">
+          <td>{{ result['property'] }}<td>
+          <td class="justificado">{{ result['value'] }} </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
     <!--<td><a [routerLink]="['/edit', pair.id]" class="btn btn-primary">Edit</a></td>
       <td><a [routerLink]="" class="btn btn-danger">Delete</a></td>-->
   </tr>
