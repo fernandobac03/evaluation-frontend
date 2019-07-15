@@ -106,17 +106,17 @@ export class AppService {
     this.datosPantalla.next(newdata)
   }
 
-  stringFormat() {
+  stringFormat(...args: any[]) {
     // The string containing the format items (e.g. "{0}")
     // will and always has to be the first argument.
-    var theString = arguments[0];
+    var theString = args[0];
 
     // start with the second argument (i = 1)
-    for (var i = 1; i < arguments.length; i++) {
+    for (var i = 1; i < args.length; i++) {
       // "gm" = RegEx options for Global search (more than one instance)
       // and for Multiline search
       var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
-      theString = theString.replace(regEx, arguments[i]);
+      theString = theString.replace(regEx, args[i]);
     }
 
     return theString;

@@ -131,15 +131,15 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
 
 
   //PARA TRANSFORMAR DATOS DEL JSON RECIBIDO DEL ENDPOINT A JSON-LD
-  const jsonTemplate = ''
+  jsonTemplate = ''
     + '   {'
     + ' {0} '
     + '  }';
-  const jsonObjTemplate =
+  jsonObjTemplate =
        '"{0}":"{1}"';
-  const jsonObjIdTemplate =
+  jsonObjIdTemplate =
     '"{0}":{1}';
-  const jsonIdTemplate =
+  jsonIdTemplate =
     '{ "@id":"{0}" }';
 
   from_rdf_to_jsonld(data)
