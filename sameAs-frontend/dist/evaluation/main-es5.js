@@ -52,7 +52,7 @@ module.exports = "<p>\r\n  Usted ha finalizado la evaluación, gracias por su co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<table class=\"table table-hover\">\r\n  <thead>\r\n  <tr class=\"d-flex\">\r\n    <th>ID</th>\r\n    <th class=\"col-4\">Recurso_A</th>\r\n    <th class=\"col-4\">Recurso B</th>\r\n    <th class=\"col-4\" colspan=\"3\">Seleccione una opción</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n  <tr class=\"d-flex\" *ngFor=\"let pair of pairs\">\r\n    <td>{{ pair.id }}</td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_a }}\" target=\"_blank\">{{ pair.uri_a }}</a></td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_b }}\" target=\"_blank\">{{ pair.uri_b }}</a></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('Igual',1, pair.id)\"  value=\"1\">Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No son Igual',2, pair.id)\"  value=\"2\">No son Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No lo se',3, pair.id)\"  value=\"3\">No lo sé</button></td>\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr class=\"d-flex\">\r\n<td>\r\n    <label>Opción seleccionada: {{selected_evaluacion_texto}}</label>\r\n</td>\r\n    </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n"
+module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<table class=\"table table-hover\">\r\n  <thead>\r\n  <tr class=\"d-flex\">\r\n    <th>ID</th>\r\n    <th class=\"col-4\">Recurso_A</th>\r\n    <th class=\"col-4\">Recurso B</th>\r\n    <th class=\"col-4\" colspan=\"3\">Seleccione una opción</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n  <tr class=\"d-flex\" *ngFor=\"let pair of pairs\">\r\n    <td>{{ pair.id }}</td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_a }}\" target=\"_blank\">Recurso A</a></td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_b }}\" target=\"_blank\">Recurso B</a></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('Igual',1, pair.id)\"  value=\"1\">Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No son Igual',2, pair.id)\"  value=\"2\">No son Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No lo se',3, pair.id)\"  value=\"3\">No lo sé</button></td>\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr class=\"d-flex\" >\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <tr *ngFor=\"let result of datos[0]\">\r\n          <td>{{ result['property'] }}<td>\r\n          <td class=\"justificado\">{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <tr *ngFor=\"let result of datos[1]\">\r\n          <td>{{ result['property'] }}<td>\r\n          <td class=\"justificado\">{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr class=\"d-flex\">\r\n<td>\r\n    <label>Opción seleccionada: {{selected_evaluacion_texto}}</label>\r\n</td>\r\n    </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n"
 
 /***/ }),
 
@@ -174,7 +174,7 @@ var AppFinalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".active {\r\n  background-color: green !important;\r\n}\r\n\r\ntable td {\r\n  #background:#e8edff;\r\n  #border-bottom:1px solid #fff;\r\n  #border-left:1px solid #fff;\r\n  #color:#336699;\r\n  #border-top:1px solid transparent;\r\n  #padding:8px;\r\n  text-overflow:ellipsis;\r\n  overflow:hidden;\r\n  white-space:nowrap;\r\n  text-align: center;\r\n}\r\n\r\n#opcion {\r\n  #widows: 10px;\r\n  background: aliceblue;\r\n  text-align: right;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLWluZGl2aWR1YWwvYXBwLWluZGl2aWR1YWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtDQUFrQztBQUNwQzs7QUFFQTtFQUNFLG1CQUFtQjtFQUNuQiw2QkFBNkI7RUFDN0IsMkJBQTJCO0VBQzNCLGNBQWM7RUFDZCxpQ0FBaUM7RUFDakMsWUFBWTtFQUNaLHNCQUFzQjtFQUN0QixlQUFlO0VBQ2Ysa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFDQTtFQUNFLGFBQWE7RUFDYixxQkFBcUI7RUFDckIsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvYXBwLWluZGl2aWR1YWwvYXBwLWluZGl2aWR1YWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hY3RpdmUge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IGdyZWVuICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbnRhYmxlIHRkIHtcclxuICAjYmFja2dyb3VuZDojZThlZGZmO1xyXG4gICNib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZmZmO1xyXG4gICNib3JkZXItbGVmdDoxcHggc29saWQgI2ZmZjtcclxuICAjY29sb3I6IzMzNjY5OTtcclxuICAjYm9yZGVyLXRvcDoxcHggc29saWQgdHJhbnNwYXJlbnQ7XHJcbiAgI3BhZGRpbmc6OHB4O1xyXG4gIHRleHQtb3ZlcmZsb3c6ZWxsaXBzaXM7XHJcbiAgb3ZlcmZsb3c6aGlkZGVuO1xyXG4gIHdoaXRlLXNwYWNlOm5vd3JhcDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuI29wY2lvbiB7XHJcbiAgI3dpZG93czogMTBweDtcclxuICBiYWNrZ3JvdW5kOiBhbGljZWJsdWU7XHJcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuIl19 */"
+module.exports = ".active {\r\n  background-color: green !important;\r\n}\r\n\r\n#opcion {\r\n  #widows: 10px;\r\n  background: aliceblue;\r\n  text-align: right;\r\n}\r\n\r\n.justificado{\r\n  height: auto;\r\n  width: 10px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLWluZGl2aWR1YWwvYXBwLWluZGl2aWR1YWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtDQUFrQztBQUNwQzs7QUFFQTtFQUNFLGFBQWE7RUFDYixxQkFBcUI7RUFDckIsaUJBQWlCO0FBQ25COztBQUdBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYiIsImZpbGUiOiJzcmMvYXBwL2FwcC1pbmRpdmlkdWFsL2FwcC1pbmRpdmlkdWFsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYWN0aXZlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmVlbiAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4jb3BjaW9uIHtcclxuICAjd2lkb3dzOiAxMHB4O1xyXG4gIGJhY2tncm91bmQ6IGFsaWNlYmx1ZTtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuXHJcbi5qdXN0aWZpY2Fkb3tcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgd2lkdGg6IDEwcHg7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -192,6 +192,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app.service */ "./src/app/app.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsonld */ "./node_modules/jsonld/lib/jsonld.js");
+/* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsonld__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! q */ "./node_modules/q/q.js");
+/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(q__WEBPACK_IMPORTED_MODULE_5__);
+
+
 
 
 
@@ -202,6 +208,17 @@ var AppIndividualComponent = /** @class */ (function () {
         this.router = router;
         this.persona_id = '';
         this.selected_evaluacion_texto = '';
+        this.querystring = '';
+        this.datos = [];
+        this.results = [];
+        //PARA TRANSFORMAR DATOS DEL JSON RECIBIDO DEL ENDPOINT A JSON-LD
+        this.jsonTemplate = ''
+            + '   {'
+            + ' {0} '
+            + '  }';
+        this.jsonObjTemplate = '"{0}":"{1}"';
+        this.jsonObjIdTemplate = '"{0}":{1}';
+        this.jsonIdTemplate = '{ "@id":"{0}" }';
     }
     AppIndividualComponent.prototype.setDecision = function (texto, evaluacion, id_par) {
         this.selected_evaluacion_texto = texto;
@@ -239,9 +256,85 @@ var AppIndividualComponent = /** @class */ (function () {
             .getPairs(1)
             .subscribe(function (data) {
             _this.pairs = data;
+            _this.loadFullData(_this.pairs);
+        });
+        this.appser.currentdatosPantalla.subscribe(function (newdata) { return _this.datos = newdata; });
+    };
+    AppIndividualComponent.prototype.loadFullData = function (fulldata) {
+        var docexample = {
+            "http://schema.org/name": "Manu Sporny",
+            "http://schema.org/url": { "@id": "http://manu.sporny.org/" },
+            "http://schema.org/image": { "@id": "http://manu.sporny.org/images/manu.png" }
+        };
+        var context = {
+            foaf: 'http://xmlns.com/foaf/0.1/',
+            rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+            geoec: 'http://linkeddata.ec/ontology#',
+            geo: 'http://www.opengis.net/ont/geosparql#',
+            schema: 'http://schema.org/',
+            rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+            dbpedia: 'http://dbpedia.org/ontology/',
+            dbpediaproperty: 'http://dbpedia.org/property/',
+            wgs84: 'http://www.w3.org/2003/01/geo/wgs84_pos#',
+            owl: 'http://www.w3.org/2002/07/owl#sameAs',
+            prov: 'http://www.w3.org/ns/prov#',
+            geoecresource: 'http://linkeddata.ec/resource/',
+            dct: 'http://purl.org/dc/terms/'
+        };
+        this.loadfullDataFromURI(context, fulldata[0]['uri_a'], 1);
+        this.loadfullDataFromURI(context, fulldata[0]['uri_b'], 2);
+    };
+    AppIndividualComponent.prototype.loadfullDataFromURI = function (context, uriResource, endpointType) {
+        var _this = this;
+        this.querystring = this.appser.stringFormat('Select * where { <{0}> ?p ?o } limit 100', uriResource);
+        this.appser.getFromTripleStore(endpointType, this.querystring).subscribe(function (data) {
+            _this.fromendpoint = data;
+            _this.results = _this.fromendpoint['body']['results']['bindings'];
+            var jsonldStr = JSON.parse(_this.from_rdf_to_jsonld(_this.results));
+            console.log(jsonldStr);
+            var datosaux = [];
+            // tslint:disable-next-line:only-arrow-functions
+            Object(q__WEBPACK_IMPORTED_MODULE_5__["async"])(jsonld__WEBPACK_IMPORTED_MODULE_4__["compact"](jsonldStr, context, function (err, compacted) {
+                for (var i in compacted) {
+                    if (i != "@context") {
+                        var model = {};
+                        model['property'] = i;
+                        model['value'] = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i];
+                        datosaux.push(model);
+                    }
+                }
+            }));
+            _this.datos.push(datosaux);
         });
     };
-    AppIndividualComponent.prototype.ngOnDestroy = function () { };
+    AppIndividualComponent.prototype.ngOnChanges = function (changes) {
+        //console.log(changes);
+    };
+    AppIndividualComponent.prototype.ngDoCheck = function () {
+        setTimeout(function () {
+            console.log("hello");
+        }, 1000);
+        //console.log('Método DoCheck lanzado');
+    };
+    AppIndividualComponent.prototype.from_rdf_to_jsonld = function (data) {
+        console.log(data);
+        var cadena = "";
+        var ind = 0;
+        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+            var resource = data_1[_i];
+            ind++;
+            var key = resource['p']['value'];
+            var value = resource['o']['value'];
+            if (resource['o']['type'] == "literal") //va directamente el objeto
+                cadena += this.appser.stringFormat(this.jsonObjTemplate, key, value);
+            else //el objeto va de tipo uri con "@id"
+                cadena += this.appser.stringFormat(this.jsonObjIdTemplate, key, this.appser.stringFormat(this.jsonIdTemplate, value));
+            if (ind < data.length) {
+                cadena += ",";
+            }
+        }
+        return this.appser.stringFormat(this.jsonTemplate, cadena);
+    };
     AppIndividualComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-app-individual',
@@ -529,11 +622,17 @@ __webpack_require__.r(__webpack_exports__);
 var AppService = /** @class */ (function () {
     function AppService(http) {
         this.http = http;
-        this.uri = 'http://localhost:4000/products';
+        /*baseuri = 'http://192.168.100.6:5000';*/
+        this.baseuri = 'http://201.159.223.25:8081';
+        this.geoecuri = 'http://linkeddata.ec/repositories/test'; /*-> Será tipo 1*/
+        this.dbpediauri = 'http://dbpedia.org/sparql'; /*-> Será tipo 2*/
+        this.endpointuri = this.geoecuri;
         this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('No Persona_ID');
         this.currentMessage = this.messageSource.asObservable();
         this.numSource = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](0);
         this.currentEvaluation = this.numSource.asObservable();
+        this.datosPantalla = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.currentdatosPantalla = this.datosPantalla.asObservable();
     }
     AppService.prototype.addPerson = function (escuela, edad, genero) {
         var obj = {
@@ -549,17 +648,14 @@ var AppService = /** @class */ (function () {
             }),
             observe: 'response',
         };
-        //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
-        //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-        return this.http.post("http://201.159.223.25:8081/geolinkeddata/service/storage/add", obj, httpOptions);
+        return this.http.post(this.baseuri + "/geolinkeddata/service/storage/add", obj, httpOptions);
     };
     AppService.prototype.getPairs = function (param) {
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
-            .set('param', '1');
+            .set('param', param);
         return this
             .http
-            .get('http://201.159.223.25:8081/geolinkeddata/service/storage/get', { params: params });
-        //.get('http://192.168.100.6:5000/geolinkeddata/service/storage/get', { params } );
+            .get(this.baseuri + '/geolinkeddata/service/storage/get', { params: params });
     };
     AppService.prototype.setEvaluation = function (evaluacion, id_persona, id_par) {
         var obj = {
@@ -575,15 +671,51 @@ var AppService = /** @class */ (function () {
             }),
             observe: 'response',
         };
-        //this.http.post(`http://192.168.100.6:5000/geolinkeddata/service/storage/add`, obj)
-        //  this.http.post(`${this.uri}/geolinkeddata/service/storage/add`, obj)
-        return this.http.post("http://201.159.223.25:8081/geolinkeddata/service/storage/addevaluation", obj, httpOptions);
+        return this.http.post(this.baseuri + '/geolinkeddata/service/storage/addevaluation', obj, httpOptions);
+    };
+    AppService.prototype.getFromTripleStore = function (endpointType, param) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+            'Content-type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/ld+json'
+        });
+        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
+            .set('query', param).set('Content-Type', 'x-www-form-urlencoded; charset=UTF-8');
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                Accept: 'application/sparql-results+json'
+            }),
+            observe: 'response',
+        };
+        if (endpointType == 1)
+            return this.http.post(this.geoecuri, params, httpOptions);
+        else if (endpointType == 2)
+            return this.http.post(this.dbpediauri, params, httpOptions);
     };
     AppService.prototype.changeMessage = function (message) {
         this.messageSource.next(message);
     };
     AppService.prototype.sumEvaluation = function (num_evaluation) {
         this.numSource.next(num_evaluation);
+    };
+    AppService.prototype.datosPantallaF = function (newdata) {
+        this.datosPantalla.next(newdata);
+    };
+    AppService.prototype.stringFormat = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        // The string containing the format items (e.g. "{0}")
+        // will and always has to be the first argument.
+        var theString = args[0];
+        // start with the second argument (i = 1)
+        for (var i = 1; i < args.length; i++) {
+            // "gm" = RegEx options for Global search (more than one instance)
+            // and for Multiline search
+            var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
+            theString = theString.replace(regEx, args[i]);
+        }
+        return theString;
     };
     AppService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -661,6 +793,50 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 
 module.exports = __webpack_require__(/*! C:\Users\Fernando\Documents\NetBeansProjects\heuristicas\evaluation-frontend\sameAs-frontend\src\main.ts */"./src/main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/*!*************************************!*\
+  !*** rdf-canonize-native (ignored) ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!************************!*\
+  !*** xmldom (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/*!*************************!*\
+  !*** request (ignored) ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 4:
+/*!**********************!*\
+  !*** http (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

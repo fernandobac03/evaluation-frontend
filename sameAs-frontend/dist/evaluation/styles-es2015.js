@@ -591,7 +591,7 @@ if(false) {}
 
 /***/ }),
 
-/***/ 2:
+/***/ 6:
 /*!******************************************************************************!*\
   !*** multi ./src/styles.css ./node_modules/bootstrap/dist/css/bootstrap.css ***!
   \******************************************************************************/
@@ -604,5 +604,5 @@ module.exports = __webpack_require__(/*! C:\Users\Fernando\Documents\NetBeansPro
 
 /***/ })
 
-},[[2,"runtime"]]]);
+},[[6,"runtime"]]]);
 //# sourceMappingURL=styles-es2015.js.map
