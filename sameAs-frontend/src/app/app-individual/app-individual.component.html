@@ -1,32 +1,27 @@
 <p>Enlaces evaluados: {{num_evaluation}}</p>
-<table class="table table-hover">
+<div class="maindiv">
+<table class="table table-hover" id="tabla">
   <thead>
-  <tr class="d-flex">
-    <th>ID</th>
-    <th class="col-4">Recurso_A</th>
-    <th class="col-4">Recurso B</th>
-    <th class="col-4" colspan="3">Seleccione una opción</th>
+  <tr>
+    <th style="width: 50%; ">Recurso_A</th>
+    <th style="width: 50%; ">Recurso B</th>
    </tr>
   </thead>
 
   <tbody>
-  <tr class="d-flex" *ngFor="let pair of pairs">
-    <td>{{ pair.id }}</td>
-    <td class="col-sm-3"><a href="{{ pair.uri_a }}" target="_blank">Recurso A</a></td>
-    <td class="col-sm-3"><a href="{{ pair.uri_b }}" target="_blank">Recurso B</a></td>
-    <td><button class="opcion" (click) = "setDecision('Igual',1, pair.id)"  value="1">Iguales</button></td>
-    <td><button class="opcion" (click) = "setDecision('No son Igual',2, pair.id)"  value="2">No son Iguales</button></td>
-    <td><button class="opcion" (click) = "setDecision('No lo se',3, pair.id)"  value="3">No lo sé</button></td>
-    <!--<td><a [routerLink]="['/edit', pair.id]" class="btn btn-primary">Edit</a></td>
-      <td><a [routerLink]="" class="btn btn-danger">Delete</a></td>-->
-  </tr>
-  <tr class="d-flex" >
+
+  <tr>
     <td>
       <table>
         <tbody>
+        <!--<tr>
+          <td  style="width: 20%; ">{{ datos[0][0]['property']? datos[0][0]['property'] : 's' }}</td>
+          <td><a href="{{ datos[0][0]['value'] }}" target="_blank">Link Recurso A </a></td>
+        </tr>
+        -->
         <tr *ngFor="let result of datos[0]">
-          <td>{{ result['property'] }}<td>
-          <td class="justificado">{{ result['value'] }} </td>
+          <td >{{ result['property'] }}</td>
+          <td>{{ result['value'] }} </td>
         </tr>
         </tbody>
       </table>
@@ -34,21 +29,38 @@
     <td>
       <table>
         <tbody>
+        <!--<tr>
+          <td  style="width: 20%; ">{{ datos[1][0]['property'] }}</td>
+          <td><a href="{{ datos[1][0]['value'] }}" target="_blank">Link Recurso B</a> </td>
+        </tr>
+        -->
         <tr *ngFor="let result of datos[1]">
-          <td>{{ result['property'] }}<td>
-          <td class="justificado">{{ result['value'] }} </td>
+          <td>{{ result['property'] }}</td>
+          <td>{{ result['value'] }} </td>
         </tr>
         </tbody>
       </table>
     </td>
+
     <!--<td><a [routerLink]="['/edit', pair.id]" class="btn btn-primary">Edit</a></td>
       <td><a [routerLink]="" class="btn btn-danger">Delete</a></td>-->
   </tr>
-  <tr class="d-flex">
-<td>
-    <label>Opción seleccionada: {{selected_evaluacion_texto}}</label>
-</td>
-    </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <app-app-map></app-app-map>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h4>Seleccione una opcion:</h4>
+      <button (click) = "setDecision('Igual',1, pairs[0].id)"  value="1">Iguales</button>
+      <button (click) = "setDecision('No son Igual',2, pairs[0].id)"  value="2">No son Iguales</button>
+      <button (click) = "setDecision('No lo se',3, pairs[0].id)"  value="3">No lo sé</button>
+    </td>
+    <td>
+    <h4>Opción seleccionada:</h4> {{selected_evaluacion_texto}}
+    </td>
+  </tr>
   <tr>
     <td >
     <button (click) = "setEvaluation()" class="btn btn-primary" routerLink="/evaluar">Enviar</button>
@@ -56,3 +68,5 @@
   </tr>
   </tbody>
 </table>
+
+</div>

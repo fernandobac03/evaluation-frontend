@@ -52,7 +52,18 @@ module.exports = "<p>\r\n  Usted ha finalizado la evaluación, gracias por su co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<table class=\"table table-hover\">\r\n  <thead>\r\n  <tr class=\"d-flex\">\r\n    <th>ID</th>\r\n    <th class=\"col-4\">Recurso_A</th>\r\n    <th class=\"col-4\">Recurso B</th>\r\n    <th class=\"col-4\" colspan=\"3\">Seleccione una opción</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n  <tr class=\"d-flex\" *ngFor=\"let pair of pairs\">\r\n    <td>{{ pair.id }}</td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_a }}\" target=\"_blank\">Recurso A</a></td>\r\n    <td class=\"col-sm-3\"><a href=\"{{ pair.uri_b }}\" target=\"_blank\">Recurso B</a></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('Igual',1, pair.id)\"  value=\"1\">Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No son Igual',2, pair.id)\"  value=\"2\">No son Iguales</button></td>\r\n    <td><button class=\"opcion\" (click) = \"setDecision('No lo se',3, pair.id)\"  value=\"3\">No lo sé</button></td>\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr class=\"d-flex\" >\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <tr *ngFor=\"let result of datos[0]\">\r\n          <td>{{ result['property'] }}<td>\r\n          <td class=\"justificado\">{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <tr *ngFor=\"let result of datos[1]\">\r\n          <td>{{ result['property'] }}<td>\r\n          <td class=\"justificado\">{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr class=\"d-flex\">\r\n<td>\r\n    <label>Opción seleccionada: {{selected_evaluacion_texto}}</label>\r\n</td>\r\n    </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n"
+module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<div class=\"maindiv\">\r\n<table class=\"table table-hover\" id=\"tabla\">\r\n  <thead>\r\n  <tr>\r\n    <th style=\"width: 50%; \">Recurso_A</th>\r\n    <th style=\"width: 50%; \">Recurso B</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n\r\n  <tr>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[0][0]['property']? datos[0][0]['property'] : 's' }}</td>\r\n          <td><a href=\"{{ datos[0][0]['value'] }}\" target=\"_blank\">Link Recurso A </a></td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[0]\">\r\n          <td >{{ result['property'] }}</td>\r\n          <td>{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[1][0]['property'] }}</td>\r\n          <td><a href=\"{{ datos[1][0]['value'] }}\" target=\"_blank\">Link Recurso B</a> </td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[1]\">\r\n          <td>{{ result['property'] }}</td>\r\n          <td>{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr>\r\n    <td colspan=\"2\" align=\"center\">\r\n      <app-app-map></app-app-map>\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td>\r\n      <h4>Seleccione una opcion:</h4>\r\n      <button (click) = \"setDecision('Igual',1, pairs[0].id)\"  value=\"1\">Iguales</button>\r\n      <button (click) = \"setDecision('No son Igual',2, pairs[0].id)\"  value=\"2\">No son Iguales</button>\r\n      <button (click) = \"setDecision('No lo se',3, pairs[0].id)\"  value=\"3\">No lo sé</button>\r\n    </td>\r\n    <td>\r\n    <h4>Opción seleccionada:</h4> {{selected_evaluacion_texto}}\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/app-map/app-map.component.html":
+/*!**************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/app-map/app-map.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<!--<button (click)=\"mostrarEnMapa()\">Visualizar Recursos en el Mapa</button>-->\n<div id=\"map\" class=\"map\"></div>\n"
 
 /***/ }),
 
@@ -174,7 +185,7 @@ var AppFinalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".active {\r\n  background-color: green !important;\r\n}\r\n\r\n#opcion {\r\n  #widows: 10px;\r\n  background: aliceblue;\r\n  text-align: right;\r\n}\r\n\r\n.justificado{\r\n  height: auto;\r\n  width: 10px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLWluZGl2aWR1YWwvYXBwLWluZGl2aWR1YWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtDQUFrQztBQUNwQzs7QUFFQTtFQUNFLGFBQWE7RUFDYixxQkFBcUI7RUFDckIsaUJBQWlCO0FBQ25COztBQUdBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYiIsImZpbGUiOiJzcmMvYXBwL2FwcC1pbmRpdmlkdWFsL2FwcC1pbmRpdmlkdWFsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYWN0aXZlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmVlbiAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4jb3BjaW9uIHtcclxuICAjd2lkb3dzOiAxMHB4O1xyXG4gIGJhY2tncm91bmQ6IGFsaWNlYmx1ZTtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuXHJcbi5qdXN0aWZpY2Fkb3tcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgd2lkdGg6IDEwcHg7XHJcbn1cclxuIl19 */"
+module.exports = ".active {\r\n  background-color: green !important;\r\n}\r\n\r\n.maindiv{\r\n  padding: 3%;\r\n}\r\n\r\ntable{\r\n  table-layout: fixed;\r\n  width: 100%;\r\n\r\n}\r\n\r\nth, td {\r\n  border: 1px solid darkgray;\r\n  word-wrap: break-word;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLWluZGl2aWR1YWwvYXBwLWluZGl2aWR1YWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtDQUFrQztBQUNwQzs7QUFFQTtFQUNFLFdBQVc7QUFDYjs7QUFDQTtFQUNFLG1CQUFtQjtFQUNuQixXQUFXOztBQUViOztBQUVBO0VBQ0UsMEJBQTBCO0VBQzFCLHFCQUFxQjtBQUN2QiIsImZpbGUiOiJzcmMvYXBwL2FwcC1pbmRpdmlkdWFsL2FwcC1pbmRpdmlkdWFsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYWN0aXZlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmVlbiAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4ubWFpbmRpdntcclxuICBwYWRkaW5nOiAzJTtcclxufVxyXG50YWJsZXtcclxuICB0YWJsZS1sYXlvdXQ6IGZpeGVkO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG5cclxufVxyXG5cclxudGgsIHRkIHtcclxuICBib3JkZXI6IDFweCBzb2xpZCBkYXJrZ3JheTtcclxuICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -194,8 +205,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsonld */ "./node_modules/jsonld/lib/jsonld.js");
 /* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsonld__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! q */ "./node_modules/q/q.js");
-/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(q__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app-map/app-map.component */ "./src/app/app-map/app-map.component.ts");
+
 
 
 
@@ -203,22 +214,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppIndividualComponent = /** @class */ (function () {
-    function AppIndividualComponent(appser, router) {
+    function AppIndividualComponent(appser, mapc, router) {
         this.appser = appser;
+        this.mapc = mapc;
         this.router = router;
         this.persona_id = '';
         this.selected_evaluacion_texto = '';
         this.querystring = '';
         this.datos = [];
-        this.results = [];
-        //PARA TRANSFORMAR DATOS DEL JSON RECIBIDO DEL ENDPOINT A JSON-LD
-        this.jsonTemplate = ''
-            + '   {'
-            + ' {0} '
-            + '  }';
-        this.jsonObjTemplate = '"{0}":"{1}"';
-        this.jsonObjIdTemplate = '"{0}":{1}';
-        this.jsonIdTemplate = '{ "@id":"{0}" }';
+        this.datosgeo = [];
+        this.labels = [];
     }
     AppIndividualComponent.prototype.setDecision = function (texto, evaluacion, id_par) {
         this.selected_evaluacion_texto = texto;
@@ -232,16 +237,14 @@ var AppIndividualComponent = /** @class */ (function () {
         }
         else {
             if (this.selected_evaluacion_texto != '') {
-                var r = confirm("Confirmar?");
-                if (r == true) {
-                    this.appser.setEvaluation(this.selected_evaluacion, this.persona_id, this.selected_id_par).subscribe(function (res) {
-                        console.log("Response: ");
-                        console.log(res['body']);
-                    });
-                    this.appser.sumEvaluation(this.num_evaluation + 1);
-                    this.ngOnInit();
-                    this.selected_evaluacion_texto = "";
-                }
+                this.appser.setEvaluation(this.selected_evaluacion, this.persona_id, this.selected_id_par).subscribe(function (res) {
+                    console.log("Response: ");
+                    console.log(res['body']);
+                });
+                this.appser.sumEvaluation(this.num_evaluation + 1);
+                this.iniciar();
+                this.mapc.clearMap();
+                this.selected_evaluacion_texto = '';
             }
             else {
                 alert("No ha seleccionado una respuesta");
@@ -249,7 +252,15 @@ var AppIndividualComponent = /** @class */ (function () {
         }
     };
     AppIndividualComponent.prototype.ngOnInit = function () {
+        this.iniciar();
+        this.mapc.iniciar();
+        this.mapc.clearMap();
+    };
+    AppIndividualComponent.prototype.iniciar = function () {
         var _this = this;
+        this.datos = [];
+        this.labels = [];
+        this.datosgeo = [];
         this.appser.currentEvaluation.subscribe(function (num_evaluation) { return _this.num_evaluation = num_evaluation; });
         this.appser.currentMessage.subscribe(function (message) { return _this.persona_id = message; });
         this.appser
@@ -258,14 +269,8 @@ var AppIndividualComponent = /** @class */ (function () {
             _this.pairs = data;
             _this.loadFullData(_this.pairs);
         });
-        this.appser.currentdatosPantalla.subscribe(function (newdata) { return _this.datos = newdata; });
     };
     AppIndividualComponent.prototype.loadFullData = function (fulldata) {
-        var docexample = {
-            "http://schema.org/name": "Manu Sporny",
-            "http://schema.org/url": { "@id": "http://manu.sporny.org/" },
-            "http://schema.org/image": { "@id": "http://manu.sporny.org/images/manu.png" }
-        };
         var context = {
             foaf: 'http://xmlns.com/foaf/0.1/',
             rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
@@ -279,61 +284,124 @@ var AppIndividualComponent = /** @class */ (function () {
             owl: 'http://www.w3.org/2002/07/owl#sameAs',
             prov: 'http://www.w3.org/ns/prov#',
             geoecresource: 'http://linkeddata.ec/resource/',
-            dct: 'http://purl.org/dc/terms/'
+            dct: 'http://purl.org/dc/terms/',
         };
-        this.loadfullDataFromURI(context, fulldata[0]['uri_a'], 1);
-        this.loadfullDataFromURI(context, fulldata[0]['uri_b'], 2);
+        var prefix = ''
+            + ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+            + ' PREFIX geoec: <http://linkeddata.ec/ontology#> '
+            + ' PREFIX geo: <http://www.opengis.net/ont/geosparql#> '
+            + ' PREFIX schema: <http://schema.org/> '
+            + ' PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> '
+            + ' PREFIX dbpedia: <http://dbpedia.org/ontology/> '
+            + ' PREFIX dbpediaproperty: <http://dbpedia.org/property/> '
+            + ' PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#> '
+            + ' PREFIX owl: <http://www.w3.org/2002/07/owl#> '
+            + ' PREFIX prov: <http://www.w3.org/ns/prov#> '
+            + ' PREFIX geoecresource: <http://linkeddata.ec/resource/>'
+            + ' PREFIX dct: <http://purl.org/dc/terms/> ';
+        var geoecQuery = prefix + ' CONSTRUCT { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' <{0}> rdf:type ?types. ' +
+            ' <{0}> geo:asWKT ?wkt. ' +
+            '} ' +
+            'WHERE { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' OPTIONAL { ' +
+            '   <{0}> rdf:type ?types. ' +
+            '   <{0}> geo:hasDefaultGeometry  ?geo. ' +
+            '   ?geo geo:asWKT ?wkt. }' +
+            ' FILTER ( lang(?label) = "es" ) .' +
+            ' } limit 100 ';
+        var dbpediaQuery = prefix + ' CONSTRUCT { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' <{0}> rdf:type ?types. ' +
+            ' <{0}> dbpedia:abstract ?abstract.' +
+            ' <{0}> dbpedia:country ?country.' +
+            ' <{0}> dbpedia:isPartOf ?isPartOf.' +
+            ' <{0}> wgs84:geometry ?geo. ' +
+            '} ' +
+            ' WHERE { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' Optional { <{0}> rdf:type ?types. ' +
+            ' <{0}> dbpedia:abstract ?abstract.' +
+            ' <{0}> dbpedia:country ?country.' +
+            ' <{0}> dbpedia:isPartOf ?isPartOf.' +
+            ' <{0}> wgs84:geometry ?geo. } ' +
+            ' FILTER ( lang(?label) = "es" ) .' +
+            ' FILTER ( lang(?abstract) = "es" ) .' +
+            '} limit 100 ';
+        this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_a'], geoecQuery, 1);
+        this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_b'], dbpediaQuery, 2);
     };
-    AppIndividualComponent.prototype.loadfullDataFromURI = function (context, uriResource, endpointType) {
+    AppIndividualComponent.prototype.loadfullDataFromURI = function (prefix, context, uriResource, query, endpointType) {
         var _this = this;
-        this.querystring = this.appser.stringFormat('Select * where { <{0}> ?p ?o } limit 100', uriResource);
-        this.appser.getFromTripleStore(endpointType, this.querystring).subscribe(function (data) {
-            _this.fromendpoint = data;
-            _this.results = _this.fromendpoint['body']['results']['bindings'];
-            var jsonldStr = JSON.parse(_this.from_rdf_to_jsonld(_this.results));
-            console.log(jsonldStr);
-            var datosaux = [];
-            // tslint:disable-next-line:only-arrow-functions
-            Object(q__WEBPACK_IMPORTED_MODULE_5__["async"])(jsonld__WEBPACK_IMPORTED_MODULE_4__["compact"](jsonldStr, context, function (err, compacted) {
-                for (var i in compacted) {
-                    if (i != "@context") {
-                        var model = {};
-                        model['property'] = i;
-                        model['value'] = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i];
-                        datosaux.push(model);
-                    }
+        this.querystring = this.appser.stringFormat(query, uriResource);
+        this.appser.getFromTripleStore(endpointType, this.querystring).subscribe(function (results) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            var datosaux, datosauxgeo, modelId, dataFromJLD, compacted, i, model, value;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.fromendpoint = results;
+                        datosaux = [];
+                        datosauxgeo = '';
+                        modelId = {};
+                        modelId['property'] = 'URL';
+                        modelId['value'] = uriResource;
+                        datosaux.push(modelId);
+                        return [4 /*yield*/, jsonld__WEBPACK_IMPORTED_MODULE_4__["compact"](this.fromendpoint, context)];
+                    case 1:
+                        // @ts-ignore
+                        dataFromJLD = _a.sent();
+                        compacted = dataFromJLD['@graph'] ? dataFromJLD['@graph'] : dataFromJLD;
+                        for (i in compacted) {
+                            if (i !== '@context') {
+                                model = {};
+                                model['property'] = i;
+                                value = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i]['@value'] ? compacted[i]['@value'] : compacted[i];
+                                model['value'] = value;
+                                datosaux.push(model);
+                                if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
+                                    datosauxgeo = model['value'];
+                                    console.log(datosauxgeo);
+                                    this.mapc.plotWKTB(model['value']);
+                                    this.mapc.dibujar();
+                                }
+                                if (model['property'] == "rdfs:label") {
+                                    this.labels.push(model['value'].toUpperCase());
+                                }
+                            }
+                        }
+                        // jsonld.compact(this.fromendpoint, context, function (err, compacted) {
+                        //   compacted = compacted['@graph'] ? compacted['@graph'] : compacted
+                        //   for (const i in compacted) {
+                        //     if (i != "@context") {
+                        //       var model = {};
+                        //       model['property'] = i;
+                        //       model['value'] = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i]['@value'] ? compacted[i]['@value'] : compacted[i];
+                        //       datosaux.push(model);
+                        //       if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
+                        //         console.log(model['value'])
+                        //         datosauxgeo = model['value'];
+                        //         console.log(datosauxgeo)
+                        //       }
+                        //     }
+                        //   }
+                        // });
+                        this.datosgeo.push(datosauxgeo);
+                        this.datos.push(datosaux);
+                        return [2 /*return*/];
                 }
-            }));
-            _this.datos.push(datosaux);
-        });
+            });
+        }); });
     };
     AppIndividualComponent.prototype.ngOnChanges = function (changes) {
         //console.log(changes);
     };
     AppIndividualComponent.prototype.ngDoCheck = function () {
         setTimeout(function () {
-            console.log("hello");
+            //console.log(" ");
         }, 1000);
         //console.log('Método DoCheck lanzado');
-    };
-    AppIndividualComponent.prototype.from_rdf_to_jsonld = function (data) {
-        console.log(data);
-        var cadena = "";
-        var ind = 0;
-        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
-            var resource = data_1[_i];
-            ind++;
-            var key = resource['p']['value'];
-            var value = resource['o']['value'];
-            if (resource['o']['type'] == "literal") //va directamente el objeto
-                cadena += this.appser.stringFormat(this.jsonObjTemplate, key, value);
-            else //el objeto va de tipo uri con "@id"
-                cadena += this.appser.stringFormat(this.jsonObjIdTemplate, key, this.appser.stringFormat(this.jsonIdTemplate, value));
-            if (ind < data.length) {
-                cadena += ",";
-            }
-        }
-        return this.appser.stringFormat(this.jsonTemplate, cadena);
     };
     AppIndividualComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -341,9 +409,319 @@ var AppIndividualComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./app-individual.component.html */ "./node_modules/raw-loader/index.js!./src/app/app-individual/app-individual.component.html"),
             styles: [__webpack_require__(/*! ./app-individual.component.css */ "./src/app/app-individual/app-individual.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_5__["AppMapComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], AppIndividualComponent);
     return AppIndividualComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/app-map/app-map.component.css":
+/*!***********************************************!*\
+  !*** ./src/app/app-map/app-map.component.css ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#map{\r\n  width: 70%;\r\n  height: 25%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLW1hcC9hcHAtbWFwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1YsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvYXBwLW1hcC9hcHAtbWFwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjbWFwe1xyXG4gIHdpZHRoOiA3MCU7XHJcbiAgaGVpZ2h0OiAyNSU7XHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/app-map/app-map.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/app-map/app-map.component.ts ***!
+  \**********************************************/
+/*! exports provided: AppMapComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppMapComponent", function() { return AppMapComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app.service */ "./src/app/app.service.ts");
+/* harmony import */ var ol_Map_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ol/Map.js */ "./node_modules/ol/Map.js");
+/* harmony import */ var ol_View_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ol/View.js */ "./node_modules/ol/View.js");
+/* harmony import */ var ol_Collection_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ol/Collection.js */ "./node_modules/ol/Collection.js");
+/* harmony import */ var ol_layer_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ol/layer.js */ "./node_modules/ol/layer.js");
+/* harmony import */ var ol_source_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ol/source.js */ "./node_modules/ol/source.js");
+/* harmony import */ var ol_format_WKT_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ol/format/WKT.js */ "./node_modules/ol/format/WKT.js");
+/* harmony import */ var ol_style_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ol/style.js */ "./node_modules/ol/style.js");
+/* harmony import */ var ol_interaction_Draw_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ol/interaction/Draw.js */ "./node_modules/ol/interaction/Draw.js");
+/* harmony import */ var ol_proj__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ol/proj */ "./node_modules/ol/proj.js");
+/* harmony import */ var ol_interaction_Select_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ol/interaction/Select.js */ "./node_modules/ol/interaction/Select.js");
+/* harmony import */ var ol_events_condition_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ol/events/condition.js */ "./node_modules/ol/events/condition.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AppMapComponent = /** @class */ (function () {
+    function AppMapComponent(appser) {
+        this.appser = appser;
+        this.latitude = -1.00;
+        this.longitude = -79.00;
+        this.features = new ol_Collection_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
+        this.current_shape = "point";
+        this.fill = new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Fill"]({
+            color: 'rgba(180, 145, 4,0.7)'
+        });
+        this.stroke = new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Stroke"]({
+            color: '#b49104',
+            width: 2
+        });
+        // text = new style.Text({
+        //   font: '12px Calibri,sans-serif',
+        //   fill: new Fill({ color: '#000' }),
+        //   stroke: new Stroke({
+        //     color: '#fff', width: 2
+        //   }),
+        //   // get the text from the feature - `this` is ol.Feature
+        //   // and show only under certain resolution
+        //   text: 'algo'
+        // })
+        this.styles = [
+            new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Style"]({
+                image: new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Circle"]({
+                    fill: this.fill,
+                    stroke: this.stroke,
+                    //text: this.text,
+                    radius: 7
+                }),
+                fill: this.fill,
+                stroke: this.stroke
+            })
+        ];
+        this.format = new ol_format_WKT_js__WEBPACK_IMPORTED_MODULE_8__["default"]();
+        this.select = null; // ref to currently selected interaction
+        // select interaction working on "pointermove"
+        this.selectPointerMove = new ol_interaction_Select_js__WEBPACK_IMPORTED_MODULE_12__["default"]({
+            condition: ol_events_condition_js__WEBPACK_IMPORTED_MODULE_13__["pointerMove"]
+        });
+    }
+    AppMapComponent.prototype.ngOnChanges = function (changes) {
+        this.changeInteraction();
+    };
+    AppMapComponent.prototype.ngOnInit = function () {
+    };
+    AppMapComponent.prototype.iniciar = function () {
+        this.createVector();
+        this.raster = new ol_layer_js__WEBPACK_IMPORTED_MODULE_6__["Tile"]({
+            source: new ol_source_js__WEBPACK_IMPORTED_MODULE_7__["OSM"]()
+        });
+        this.map = new ol_Map_js__WEBPACK_IMPORTED_MODULE_3__["default"]({
+            layers: [this.raster, this.vector],
+            target: 'map',
+            view: new ol_View_js__WEBPACK_IMPORTED_MODULE_4__["default"]({
+                center: Object(ol_proj__WEBPACK_IMPORTED_MODULE_11__["fromLonLat"])([this.longitude, this.latitude]),
+                zoom: 7
+            })
+        });
+        //this.setCenter();
+    };
+    AppMapComponent.prototype.setCenter = function () {
+        var view = this.map.getView();
+        view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
+        view.setZoom(7);
+    };
+    AppMapComponent.prototype.addInteraction = function (shape) {
+        this.draw = new ol_interaction_Draw_js__WEBPACK_IMPORTED_MODULE_10__["default"]({
+            features: this.features,
+            type: /** @type {ol.geom.GeometryType} */ shape
+        });
+        this.map.addInteraction(this.draw);
+    };
+    AppMapComponent.prototype.createVector = function () {
+        this.vector = new ol_layer_js__WEBPACK_IMPORTED_MODULE_6__["Vector"]({
+            source: new ol_source_js__WEBPACK_IMPORTED_MODULE_7__["Vector"]({ features: this.features }),
+            style: this.styles
+        });
+    };
+    AppMapComponent.prototype.plotWKTB = function (WKT) {
+        console.log("From iniciar: ");
+        console.log(WKT);
+        var newFeature;
+        if (!WKT || WKT === '') {
+            console.log('No WKT String');
+            return;
+        }
+        else {
+            if (!WKT.startsWith('POINT')) {
+                console.log('Eliminando prefix en WKT');
+                WKT = WKT.substr(45);
+            }
+            try {
+                newFeature = this.format.readFeature(WKT.toString());
+            }
+            catch (err) {
+                console.log("No Read WKT ");
+            }
+        }
+        if (!newFeature) {
+            console.log('Geometria no ha sido recuperada correctamente');
+            return;
+        }
+        else {
+            this.map.removeLayer(this.vector);
+            newFeature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+            this.features.push(newFeature);
+        }
+    };
+    AppMapComponent.prototype.dibujar = function () {
+        this.vector = new ol_layer_js__WEBPACK_IMPORTED_MODULE_6__["Vector"]({
+            source: new ol_source_js__WEBPACK_IMPORTED_MODULE_7__["Vector"]({ features: this.features }),
+            style: this.styles
+        });
+        //this.selectGeom(this.current_shape);
+        this.map.addLayer(this.vector);
+        var derived_feature = this.features.getArray()[0];
+        var extent = derived_feature.getGeometry().getExtent();
+        var minx = derived_feature.getGeometry().getExtent()[0];
+        var miny = derived_feature.getGeometry().getExtent()[1];
+        var maxx = derived_feature.getGeometry().getExtent()[2];
+        var maxy = derived_feature.getGeometry().getExtent()[3];
+        var centerx = (minx + maxx) / 2;
+        var centery = (miny + maxy) / 2;
+        this.map.setView(new ol_View_js__WEBPACK_IMPORTED_MODULE_4__["default"]({
+            center: [minx, miny],
+            zoom: 13
+        }));
+        //this.map.getView().fit(extent, this.map.getSize());
+    };
+    AppMapComponent.prototype.changeInteraction = function () {
+        if (this.select !== null) {
+            this.map.removeInteraction(this.select);
+        }
+        this.select = this.selectPointerMove;
+        if (this.select !== null) {
+            this.map.addInteraction(this.select);
+            this.select.on('select', function (e) {
+                console.log("clik en el Feature");
+            });
+        }
+    };
+    AppMapComponent.prototype.plotWKT = function (WKTA, WKTB) {
+        var newFeatureA;
+        var newFeatureB;
+        console.log('Geometría A');
+        console.log(WKTA);
+        console.log('Geometría B');
+        console.log(WKTB);
+        if (!WKTA || WKTA === '') {
+            console.log('No WKTA String');
+            return;
+        }
+        else {
+            if (!WKTA.startsWith('POINT')) {
+                console.log('Eliminando prefix en WKTA');
+                WKTA = WKTA.substr(45);
+            }
+            try {
+                newFeatureA = this.format.readFeature(WKTA.toString());
+            }
+            catch (err) {
+                console.log("No Read WKT A");
+            }
+        }
+        if (!WKTB || WKTB === '') {
+            console.log('No WKTB String');
+            return;
+        }
+        else {
+            if (!WKTB.startsWith('POINT')) {
+                console.log('Eliminando prefix en WKTB');
+                WKTB = WKTB.substr(45);
+            }
+            try {
+                newFeatureB = this.format.readFeature(WKTB.toString());
+            }
+            catch (err) {
+                console.log("No Read WKT B");
+            }
+        }
+        this.features.clear();
+        if (!newFeatureA) {
+            console.log('Geometria A no ha sido recuperada correctamente');
+            return;
+        }
+        else {
+            this.map.removeLayer(this.vector);
+            newFeatureA.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+            this.features.push(newFeatureA);
+        }
+        if (!newFeatureB) {
+            console.log('Geometría B no ha sido recuperada correctamente');
+            return;
+        }
+        else {
+            this.map.removeLayer(this.vector);
+            newFeatureB.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+            this.features.push(newFeatureB);
+        }
+        this.vector = new ol.layer.Vector({
+            source: new ol.source.Vector({ features: this.features }),
+            style: this.styles
+        });
+        this.selectGeom(this.current_shape);
+        this.map.addLayer(this.vector);
+        var derived_feature = this.features.getArray()[0];
+        var extent = derived_feature.getGeometry().getExtent();
+        var minx = derived_feature.getGeometry().getExtent()[0];
+        var miny = derived_feature.getGeometry().getExtent()[1];
+        var maxx = derived_feature.getGeometry().getExtent()[2];
+        var maxy = derived_feature.getGeometry().getExtent()[3];
+        var centerx = (minx + maxx) / 2;
+        var centery = (miny + maxy) / 2;
+        this.map.setView(new ol.View({
+            center: [minx, miny],
+            zoom: 13
+        }));
+        //this.map.getView().fit(extent, this.map.getSize());
+    };
+    AppMapComponent.prototype.mostrarEnMapa = function () {
+        var _this = this;
+        this.appser.currentWKTs.subscribe(function (WKTs) {
+            var wktA = WKTs[0];
+            var wktB = WKTs[1];
+            _this.plotWKT(wktA, wktB);
+        });
+    };
+    AppMapComponent.prototype.clearMap = function () {
+        this.features.clear();
+        this.map.removeLayer(this.vector);
+        this.features.clear();
+        this.vector = new ol_layer_js__WEBPACK_IMPORTED_MODULE_6__["Vector"]({
+            source: new ol_source_js__WEBPACK_IMPORTED_MODULE_7__["Vector"]({ features: this.features }),
+            style: this.styles
+        });
+        //this.selectGeom(this.current_shape);
+        this.map.addLayer(this.vector);
+    };
+    AppMapComponent.prototype.selectGeom = function (shape) {
+        this.current_shape = shape;
+        this.map.removeInteraction(this.draw);
+        this.addInteraction(shape);
+    };
+    AppMapComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-app-map',
+            template: __webpack_require__(/*! raw-loader!./app-map.component.html */ "./node_modules/raw-loader/index.js!./src/app/app-map/app-map.component.html"),
+            styles: [__webpack_require__(/*! ./app-map.component.css */ "./src/app/app-map/app-map.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"]])
+    ], AppMapComponent);
+    return AppMapComponent;
 }());
 
 
@@ -556,6 +934,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_evaluation_app_evaluation_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-evaluation/app-evaluation.component */ "./src/app/app-evaluation/app-evaluation.component.ts");
 /* harmony import */ var _app_individual_app_individual_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-individual/app-individual.component */ "./src/app/app-individual/app-individual.component.ts");
 /* harmony import */ var _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app-final/app-final.component */ "./src/app/app-final/app-final.component.ts");
+/* harmony import */ var _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app-map/app-map.component */ "./src/app/app-map/app-map.component.ts");
+
 
 
 
@@ -580,7 +960,8 @@ var AppModule = /** @class */ (function () {
                 _app_start_app_start_component__WEBPACK_IMPORTED_MODULE_9__["AppStartComponent"],
                 _app_evaluation_app_evaluation_component__WEBPACK_IMPORTED_MODULE_10__["AppEvaluationComponent"],
                 _app_individual_app_individual_component__WEBPACK_IMPORTED_MODULE_11__["AppIndividualComponent"],
-                _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_12__["AppFinalComponent"]
+                _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_12__["AppFinalComponent"],
+                _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__["AppMapComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -590,7 +971,7 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"]
             ],
-            providers: [_app_service__WEBPACK_IMPORTED_MODULE_8__["AppService"]],
+            providers: [_app_service__WEBPACK_IMPORTED_MODULE_8__["AppService"], _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__["AppMapComponent"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
@@ -631,8 +1012,10 @@ var AppService = /** @class */ (function () {
         this.currentMessage = this.messageSource.asObservable();
         this.numSource = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](0);
         this.currentEvaluation = this.numSource.asObservable();
-        this.datosPantalla = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
-        this.currentdatosPantalla = this.datosPantalla.asObservable();
+        this.wkts = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.currentWKTs = this.wkts.asObservable();
+        this.wktA = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('No wkt');
+        this.currentWKTA = this.wktA.asObservable();
     }
     AppService.prototype.addPerson = function (escuela, edad, genero) {
         var obj = {
@@ -679,17 +1062,17 @@ var AppService = /** @class */ (function () {
             'Accept': 'application/ld+json'
         });
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
-            .set('query', param).set('Content-Type', 'x-www-form-urlencoded; charset=UTF-8');
+            .set('query', param);
         var httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-                Accept: 'application/sparql-results+json'
+                Accept: 'application/ld+json'
             }),
             observe: 'response',
         };
         if (endpointType == 1)
-            return this.http.post(this.geoecuri, params, httpOptions);
+            return this.http.get(this.geoecuri, { params: params, headers: headers });
         else if (endpointType == 2)
-            return this.http.post(this.dbpediauri, params, httpOptions);
+            return this.http.get(this.dbpediauri, { params: params, headers: headers });
     };
     AppService.prototype.changeMessage = function (message) {
         this.messageSource.next(message);
@@ -697,8 +1080,11 @@ var AppService = /** @class */ (function () {
     AppService.prototype.sumEvaluation = function (num_evaluation) {
         this.numSource.next(num_evaluation);
     };
-    AppService.prototype.datosPantallaF = function (newdata) {
-        this.datosPantalla.next(newdata);
+    AppService.prototype.setWKTs = function (wktsvalues) {
+        this.wkts.next(wktsvalues);
+    };
+    AppService.prototype.setnewWKTA = function (wktvalueA) {
+        this.wktA.next(wktvalueA);
     };
     AppService.prototype.stringFormat = function () {
         var args = [];

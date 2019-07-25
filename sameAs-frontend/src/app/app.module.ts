@@ -12,6 +12,7 @@ import { AppStartComponent } from './app-start/app-start.component';
 import { AppEvaluationComponent } from './app-evaluation/app-evaluation.component';
 import { AppIndividualComponent } from './app-individual/app-individual.component';
 import { AppFinalComponent } from './app-final/app-final.component';
+import { AppMapComponent } from './app-map/app-map.component';
 
 
 
@@ -23,7 +24,8 @@ import { AppFinalComponent } from './app-final/app-final.component';
     AppStartComponent,
     AppEvaluationComponent,
     AppIndividualComponent,
-    AppFinalComponent
+    AppFinalComponent,
+    AppMapComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { AppFinalComponent } from './app-final/app-final.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ AppService ],
+  providers: [ AppService, AppMapComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

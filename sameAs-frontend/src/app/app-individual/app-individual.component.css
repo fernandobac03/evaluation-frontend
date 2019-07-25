@@ -2,14 +2,16 @@
   background-color: green !important;
 }
 
-#opcion {
-  #widows: 10px;
-  background: aliceblue;
-  text-align: right;
+.maindiv{
+  padding: 3%;
+}
+table{
+  table-layout: fixed;
+  width: 100%;
+
 }
 
-
-.justificado{
-  height: auto;
-  width: 10px;
+th, td {
+  border: 1px solid darkgray;
+  word-wrap: break-word;
 }

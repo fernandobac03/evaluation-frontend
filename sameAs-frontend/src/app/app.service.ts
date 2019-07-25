@@ -70,18 +70,18 @@ export class AppService {
     });
 
     const params = new HttpParams()
-      .set('query', param).set('Content-Type', 'x-www-form-urlencoded; charset=UTF-8')
+      .set('query', param)
     const httpOptions: { headers; observe; } = {
       headers: new HttpHeaders({
-        Accept: 'application/sparql-results+json'
+        Accept: 'application/ld+json'
       }),
       observe: 'response',
     };
     if (endpointType==1)
-      return this.http.post(this.geoecuri, params, httpOptions);
+      return this.http.get(this.geoecuri, {params, headers: headers});
     else
     if (endpointType==2)
-      return this.http.post(this.dbpediauri, params, httpOptions);
+      return this.http.get(this.dbpediauri, {params, headers: headers});
 
   }
 
@@ -91,21 +91,24 @@ export class AppService {
   private messageSource = new BehaviorSubject('No Persona_ID');
   currentMessage = this.messageSource.asObservable();
   changeMessage(message: string) {
-    this.messageSource.next(message)
+    this.messageSource.next(message);
   }
 
   private numSource = new BehaviorSubject(0);
   currentEvaluation = this.numSource.asObservable();
   sumEvaluation(num_evaluation: number) {
-    this.numSource.next(num_evaluation)
+    this.numSource.next(num_evaluation);
   }
-
-  private datosPantalla = new BehaviorSubject([]);
-  currentdatosPantalla = this.datosPantalla.asObservable();
-  datosPantallaF(newdata: string[]) {
-    this.datosPantalla.next(newdata)
+  private wkts = new BehaviorSubject([]);
+  currentWKTs = this.wkts.asObservable();
+  setWKTs(wktsvalues: []) {
+    this.wkts.next(wktsvalues);
   }
-
+  private wktA = new BehaviorSubject('No wkt');
+  currentWKTA = this.wktA.asObservable();
+  setnewWKTA(wktvalueA: string) {
+    this.wktA.next(wktvalueA);
+  }
   stringFormat(...args: any[]) {
     // The string containing the format items (e.g. "{0}")
     // will and always has to be the first argument.
