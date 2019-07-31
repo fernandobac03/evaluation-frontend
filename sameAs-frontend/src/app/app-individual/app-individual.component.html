@@ -20,9 +20,11 @@
         </tr>
         -->
         <tr *ngFor="let result of datos[0]">
-          <td >{{ result['property'] }}</td>
-          <td>{{ result['value'] }} </td>
-        </tr>
+          <td>{{result['property']}}</td>
+          <td>{{ result['property']=='URL' ? ''  : result['value'] }}
+          <a *ngIf=" result['property']=='URL' " href="{{result['value']}}" target="_blank">{{result['value']}}</a>
+          </td>
+          </tr>
         </tbody>
       </table>
     </td>
@@ -36,7 +38,9 @@
         -->
         <tr *ngFor="let result of datos[1]">
           <td>{{ result['property'] }}</td>
-          <td>{{ result['value'] }} </td>
+          <td>{{ result['property']=='URL' ? ''  : result['value'] }}
+            <a *ngIf=" result['property']=='URL' " href="{{result['value']}}" target="_blank">{{result['value']}}</a>
+          </td>
         </tr>
         </tbody>
       </table>

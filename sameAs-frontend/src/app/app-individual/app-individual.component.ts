@@ -3,7 +3,7 @@ import {Component, OnChanges, OnInit, SimpleChanges, DoCheck} from '@angular/cor
 import {AppService} from '../app.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jsonld from 'jsonld';
-import {deprecate} from "util";
+import {deprecate, isArray} from "util";
 import {compact} from "jsonld";
 import {AppMapComponent} from '../app-map/app-map.component';
 import {init} from "protractor/built/launcher";
@@ -121,18 +121,16 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
       ' <{0}> rdf:type ?types. ' +
       ' <{0}> dbpedia:abstract ?abstract.' +
       ' <{0}> dbpedia:country ?country.' +
-      ' <{0}> dbpedia:isPartOf ?isPartOf.' +
       ' <{0}> wgs84:geometry ?geo. ' +
       '} ' +
       ' WHERE { ' +
       ' <{0}> rdfs:label ?label. ' +
-      ' Optional { <{0}> rdf:type ?types. ' +
-      ' <{0}> dbpedia:abstract ?abstract.' +
-      ' <{0}> dbpedia:country ?country.' +
-      ' <{0}> dbpedia:isPartOf ?isPartOf.' +
-      ' <{0}> wgs84:geometry ?geo. } ' +
-      ' FILTER ( lang(?label) = "es" ) .' +
-      ' FILTER ( lang(?abstract) = "es" ) .' +
+      ' Optional { <{0}> rdf:type ?types. }' +
+      ' Optional { <{0}> dbpedia:abstract ?abstract. }' +
+      ' Optional { <{0}> dbpedia:country ?country. }' +
+      ' Optional { <{0}> wgs84:geometry ?geo. } ' +
+      ' FILTER ( lang(?label) = "es" || lang(?abstract) = "en" ) .' +
+      ' FILTER ( lang(?abstract) = "es" || lang(?abstract) = "en" ) .' +
       '} limit 100 '
 
     this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_a'], geoecQuery, 1);
@@ -163,7 +161,10 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
           model['property'] = i;
           const value = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i]['@value'] ? compacted[i]['@value'] : compacted[i];
           model['value'] = value;
-          datosaux.push(model);
+          if (model['property'] != '@type') {
+            model['value'] = isArray(model['value']) ? model['value'][0]['@value'] : model['value']
+          }
+            datosaux.push(model);
           if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
             datosauxgeo = model['value'];
             console.log(datosauxgeo)
@@ -171,6 +172,7 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
             this.mapc.dibujar();
           }
           if (model['property'] == "rdfs:label") {
+
             this.labels.push(model['value'].toUpperCase());
           }
         }

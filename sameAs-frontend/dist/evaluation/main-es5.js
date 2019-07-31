@@ -52,7 +52,7 @@ module.exports = "<p>\r\n  Usted ha finalizado la evaluación, gracias por su co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<div class=\"maindiv\">\r\n<table class=\"table table-hover\" id=\"tabla\">\r\n  <thead>\r\n  <tr>\r\n    <th style=\"width: 50%; \">Recurso_A</th>\r\n    <th style=\"width: 50%; \">Recurso B</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n\r\n  <tr>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[0][0]['property']? datos[0][0]['property'] : 's' }}</td>\r\n          <td><a href=\"{{ datos[0][0]['value'] }}\" target=\"_blank\">Link Recurso A </a></td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[0]\">\r\n          <td >{{ result['property'] }}</td>\r\n          <td>{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[1][0]['property'] }}</td>\r\n          <td><a href=\"{{ datos[1][0]['value'] }}\" target=\"_blank\">Link Recurso B</a> </td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[1]\">\r\n          <td>{{ result['property'] }}</td>\r\n          <td>{{ result['value'] }} </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr>\r\n    <td colspan=\"2\" align=\"center\">\r\n      <app-app-map></app-app-map>\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td>\r\n      <h4>Seleccione una opcion:</h4>\r\n      <button (click) = \"setDecision('Igual',1, pairs[0].id)\"  value=\"1\">Iguales</button>\r\n      <button (click) = \"setDecision('No son Igual',2, pairs[0].id)\"  value=\"2\">No son Iguales</button>\r\n      <button (click) = \"setDecision('No lo se',3, pairs[0].id)\"  value=\"3\">No lo sé</button>\r\n    </td>\r\n    <td>\r\n    <h4>Opción seleccionada:</h4> {{selected_evaluacion_texto}}\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n\r\n</div>\r\n"
+module.exports = "<p>Enlaces evaluados: {{num_evaluation}}</p>\r\n<div class=\"maindiv\">\r\n<table class=\"table table-hover\" id=\"tabla\">\r\n  <thead>\r\n  <tr>\r\n    <th style=\"width: 50%; \">Recurso_A</th>\r\n    <th style=\"width: 50%; \">Recurso B</th>\r\n   </tr>\r\n  </thead>\r\n\r\n  <tbody>\r\n\r\n  <tr>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[0][0]['property']? datos[0][0]['property'] : 's' }}</td>\r\n          <td><a href=\"{{ datos[0][0]['value'] }}\" target=\"_blank\">Link Recurso A </a></td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[0]\">\r\n          <td>{{result['property']}}</td>\r\n          <td>{{ result['property']=='URL' ? ''  : result['value'] }}\r\n          <a *ngIf=\" result['property']=='URL' \" href=\"{{result['value']}}\" target=\"_blank\">{{result['value']}}</a>\r\n          </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n    <td>\r\n      <table>\r\n        <tbody>\r\n        <!--<tr>\r\n          <td  style=\"width: 20%; \">{{ datos[1][0]['property'] }}</td>\r\n          <td><a href=\"{{ datos[1][0]['value'] }}\" target=\"_blank\">Link Recurso B</a> </td>\r\n        </tr>\r\n        -->\r\n        <tr *ngFor=\"let result of datos[1]\">\r\n          <td>{{ result['property'] }}</td>\r\n          <td>{{ result['property']=='URL' ? ''  : result['value'] }}\r\n            <a *ngIf=\" result['property']=='URL' \" href=\"{{result['value']}}\" target=\"_blank\">{{result['value']}}</a>\r\n          </td>\r\n        </tr>\r\n        </tbody>\r\n      </table>\r\n    </td>\r\n\r\n    <!--<td><a [routerLink]=\"['/edit', pair.id]\" class=\"btn btn-primary\">Edit</a></td>\r\n      <td><a [routerLink]=\"\" class=\"btn btn-danger\">Delete</a></td>-->\r\n  </tr>\r\n  <tr>\r\n    <td colspan=\"2\" align=\"center\">\r\n      <app-app-map></app-app-map>\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td>\r\n      <h4>Seleccione una opcion:</h4>\r\n      <button (click) = \"setDecision('Igual',1, pairs[0].id)\"  value=\"1\">Iguales</button>\r\n      <button (click) = \"setDecision('No son Igual',2, pairs[0].id)\"  value=\"2\">No son Iguales</button>\r\n      <button (click) = \"setDecision('No lo se',3, pairs[0].id)\"  value=\"3\">No lo sé</button>\r\n    </td>\r\n    <td>\r\n    <h4>Opción seleccionada:</h4> {{selected_evaluacion_texto}}\r\n    </td>\r\n  </tr>\r\n  <tr>\r\n    <td >\r\n    <button (click) = \"setEvaluation()\" class=\"btn btn-primary\" routerLink=\"/evaluar\">Enviar</button>\r\n    </td>\r\n  </tr>\r\n  </tbody>\r\n</table>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -205,7 +205,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsonld */ "./node_modules/jsonld/lib/jsonld.js");
 /* harmony import */ var jsonld__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsonld__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app-map/app-map.component */ "./src/app/app-map/app-map.component.ts");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app-map/app-map.component */ "./src/app/app-map/app-map.component.ts");
+
 
 
 
@@ -317,18 +320,16 @@ var AppIndividualComponent = /** @class */ (function () {
             ' <{0}> rdf:type ?types. ' +
             ' <{0}> dbpedia:abstract ?abstract.' +
             ' <{0}> dbpedia:country ?country.' +
-            ' <{0}> dbpedia:isPartOf ?isPartOf.' +
             ' <{0}> wgs84:geometry ?geo. ' +
             '} ' +
             ' WHERE { ' +
             ' <{0}> rdfs:label ?label. ' +
-            ' Optional { <{0}> rdf:type ?types. ' +
-            ' <{0}> dbpedia:abstract ?abstract.' +
-            ' <{0}> dbpedia:country ?country.' +
-            ' <{0}> dbpedia:isPartOf ?isPartOf.' +
-            ' <{0}> wgs84:geometry ?geo. } ' +
-            ' FILTER ( lang(?label) = "es" ) .' +
-            ' FILTER ( lang(?abstract) = "es" ) .' +
+            ' Optional { <{0}> rdf:type ?types. }' +
+            ' Optional { <{0}> dbpedia:abstract ?abstract. }' +
+            ' Optional { <{0}> dbpedia:country ?country. }' +
+            ' Optional { <{0}> wgs84:geometry ?geo. } ' +
+            ' FILTER ( lang(?label) = "es" || lang(?abstract) = "en" ) .' +
+            ' FILTER ( lang(?abstract) = "es" || lang(?abstract) = "en" ) .' +
             '} limit 100 ';
         this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_a'], geoecQuery, 1);
         this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_b'], dbpediaQuery, 2);
@@ -359,6 +360,9 @@ var AppIndividualComponent = /** @class */ (function () {
                                 model['property'] = i;
                                 value = compacted[i]['@id'] ? compacted[i]['@id'] : compacted[i]['@value'] ? compacted[i]['@value'] : compacted[i];
                                 model['value'] = value;
+                                if (model['property'] != '@type') {
+                                    model['value'] = Object(util__WEBPACK_IMPORTED_MODULE_5__["isArray"])(model['value']) ? model['value'][0]['@value'] : model['value'];
+                                }
                                 datosaux.push(model);
                                 if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
                                     datosauxgeo = model['value'];
@@ -409,7 +413,7 @@ var AppIndividualComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./app-individual.component.html */ "./node_modules/raw-loader/index.js!./src/app/app-individual/app-individual.component.html"),
             styles: [__webpack_require__(/*! ./app-individual.component.css */ "./src/app/app-individual/app-individual.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_5__["AppMapComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_6__["AppMapComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], AppIndividualComponent);
     return AppIndividualComponent;
 }());
