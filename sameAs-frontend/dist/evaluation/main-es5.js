@@ -771,6 +771,11 @@ var routes = [
         path: '',
         redirectTo: 'iniciar',
         pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: 'iniciar',
+        pathMatch: 'full'
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

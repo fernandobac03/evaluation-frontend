@@ -755,6 +755,11 @@ const routes = [
         path: '',
         redirectTo: 'iniciar',
         pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: 'iniciar',
+        pathMatch: 'full'
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

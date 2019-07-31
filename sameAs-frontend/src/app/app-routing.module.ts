@@ -20,6 +20,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'iniciar',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'iniciar',
+    pathMatch: 'full'
   }
 
   ];
