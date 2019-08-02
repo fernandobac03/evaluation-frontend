@@ -13,6 +13,7 @@ import { AppEvaluationComponent } from './app-evaluation/app-evaluation.componen
 import { AppIndividualComponent } from './app-individual/app-individual.component';
 import { AppFinalComponent } from './app-final/app-final.component';
 import { AppMapComponent } from './app-map/app-map.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -25,7 +26,8 @@ import { AppMapComponent } from './app-map/app-map.component';
     AppEvaluationComponent,
     AppIndividualComponent,
     AppFinalComponent,
-    AppMapComponent
+    AppMapComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -36,11 +36,11 @@ export class AppMapComponent implements OnInit, OnChanges {
   vector;
   draw;
   fill = new Fill({
-    color: 'rgba(180, 145, 4,0.7)'
+    color: 'rgba(180, 145, 4,0.6)'
   });
   stroke = new Stroke({
     color: '#b49104',
-    width: 2
+    width: 5
   });
   // text = new style.Text({
   //   font: '12px Calibri,sans-serif',
@@ -114,15 +114,13 @@ export class AppMapComponent implements OnInit, OnChanges {
     });
   }
 
-  plotWKTB(WKT) {
-    console.log("From iniciar: ")
-    console.log(WKT)
+  prepareFeature(WKT) {
     let newFeature;
     if (!WKT || WKT === '') {
       console.log('No WKT String')
       return;
     } else {
-      if (!WKT.startsWith('POINT')){
+      if (WKT.startsWith('<http://www.opengis.net/def/crs/EPSG/0/4326>')){
         console.log('Eliminando prefix en WKT')
         WKT = WKT.substr(45);
       }
@@ -141,7 +139,7 @@ export class AppMapComponent implements OnInit, OnChanges {
       this.features.push(newFeature);
     }
   }
-dibujar() {
+  drawFeature() {
   this.vector = new VectorLayer({
     source: new VectorSource({features: this.features}),
     style: this.styles
@@ -159,7 +157,7 @@ dibujar() {
 
   this.map.setView(new View({
       center: [minx, miny],
-      zoom: 13
+      zoom: 15
     })
   );
   //this.map.getView().fit(extent, this.map.getSize());
@@ -181,87 +179,87 @@ dibujar() {
 
 
 
-  plotWKT(WKTA, WKTB) {
-    let newFeatureA;
-    let newFeatureB;
-    console.log('Geometría A')
-    console.log(WKTA)
-    console.log('Geometría B')
-    console.log(WKTB)
-
-    if (!WKTA || WKTA === '') {
-      console.log('No WKTA String')
-      return;
-    } else {
-      if (!WKTA.startsWith('POINT')){
-      console.log('Eliminando prefix en WKTA')
-      WKTA = WKTA.substr(45);
-      }
-      try {
-      newFeatureA = this.format.readFeature(WKTA.toString());
-      } catch (err) {
-        console.log("No Read WKT A")
-      }
-    }
-    if (!WKTB || WKTB === '') {
-      console.log('No WKTB String')
-      return;
-    } else {
-      if (!WKTB.startsWith('POINT')){
-        console.log('Eliminando prefix en WKTB')
-        WKTB = WKTB.substr(45);
-      }
-      try {
-        newFeatureB = this.format.readFeature(WKTB.toString());
-      } catch (err) {
-        console.log("No Read WKT B")
-      }
-    }
-    this.features.clear();
-    if (!newFeatureA) {
-    console.log('Geometria A no ha sido recuperada correctamente')
-    return;
-  } else {
-      this.map.removeLayer(this.vector);
-      newFeatureA.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-    this.features.push(newFeatureA);
-  }
-    if (!newFeatureB) {
-      console.log('Geometría B no ha sido recuperada correctamente')
-      return;
-    } else {
-      this.map.removeLayer(this.vector);
-      newFeatureB.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-      this.features.push(newFeatureB);
-    }
-  this.vector = new ol.layer.Vector({
-    source: new ol.source.Vector({features: this.features}),
-    style: this.styles
-  });
-  this.selectGeom(this.current_shape);
-  this.map.addLayer(this.vector);
-  var derived_feature = this.features.getArray()[0];
-  var extent = derived_feature.getGeometry().getExtent();
-  var minx = derived_feature.getGeometry().getExtent()[0];
-  var miny = derived_feature.getGeometry().getExtent()[1];
-  var maxx = derived_feature.getGeometry().getExtent()[2];
-  var maxy = derived_feature.getGeometry().getExtent()[3];
-  var centerx = (minx + maxx) / 2;
-  var centery = (miny + maxy) / 2;
-   this.map.setView(new ol.View({
-       center: [minx, miny],
-       zoom: 13
-     })
-   );
-  //this.map.getView().fit(extent, this.map.getSize());
-}
-mostrarEnMapa() {
-    this.appser.currentWKTs.subscribe(WKTs =>  {
-     const wktA = WKTs[0];
-     const wktB = WKTs[1];
-     this.plotWKT(wktA, wktB);
-    });
-  }
+//   plotWKT(WKTA, WKTB) { //para dibujar dos geometrías al mismo tiempo--- no se utiliza
+//     let newFeatureA;
+//     let newFeatureB;
+//     console.log('Geometría A')
+//     console.log(WKTA)
+//     console.log('Geometría B')
+//     console.log(WKTB)
+//
+//     if (!WKTA || WKTA === '') {
+//       console.log('No WKTA String')
+//       return;
+//     } else {
+//       if (!WKTA.startsWith('POINT')){
+//       console.log('Eliminando prefix en WKTA')
+//       WKTA = WKTA.substr(45);
+//       }
+//       try {
+//       newFeatureA = this.format.readFeature(WKTA.toString());
+//       } catch (err) {
+//         console.log("No Read WKT A")
+//       }
+//     }
+//     if (!WKTB || WKTB === '') {
+//       console.log('No WKTB String')
+//       return;
+//     } else {
+//       if (!WKTB.startsWith('POINT')){
+//         console.log('Eliminando prefix en WKTB')
+//         WKTB = WKTB.substr(45);
+//       }
+//       try {
+//         newFeatureB = this.format.readFeature(WKTB.toString());
+//       } catch (err) {
+//         console.log("No Read WKT B")
+//       }
+//     }
+//     this.features.clear();
+//     if (!newFeatureA) {
+//     console.log('Geometria A no ha sido recuperada correctamente')
+//     return;
+//   } else {
+//       this.map.removeLayer(this.vector);
+//       newFeatureA.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+//     this.features.push(newFeatureA);
+//   }
+//     if (!newFeatureB) {
+//       console.log('Geometría B no ha sido recuperada correctamente')
+//       return;
+//     } else {
+//       this.map.removeLayer(this.vector);
+//       newFeatureB.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+//       this.features.push(newFeatureB);
+//     }
+//   this.vector = new ol.layer.Vector({
+//     source: new ol.source.Vector({features: this.features}),
+//     style: this.styles
+//   });
+//   this.selectGeom(this.current_shape);
+//   this.map.addLayer(this.vector);
+//   var derived_feature = this.features.getArray()[0];
+//   var extent = derived_feature.getGeometry().getExtent();
+//   var minx = derived_feature.getGeometry().getExtent()[0];
+//   var miny = derived_feature.getGeometry().getExtent()[1];
+//   var maxx = derived_feature.getGeometry().getExtent()[2];
+//   var maxy = derived_feature.getGeometry().getExtent()[3];
+//   var centerx = (minx + maxx) / 2;
+//   var centery = (miny + maxy) / 2;
+//    this.map.setView(new ol.View({
+//        center: [minx, miny],
+//        zoom: 13
+//      })
+//    );
+//   //this.map.getView().fit(extent, this.map.getSize());
+// }
+// mostrarEnMapa() {
+//     this.appser.currentWKTs.subscribe(WKTs =>  {
+//      const wktA = WKTs[0];
+//      const wktB = WKTs[1];
+//      this.plotWKT(wktA, wktB);
+//     });
+//   }
   clearMap() {
     this.features.clear();
     this.map.removeLayer(this.vector);

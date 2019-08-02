@@ -15,6 +15,8 @@ export class AppService {
 
   geoecuri = 'http://linkeddata.ec/repositories/test'   /*-> Será tipo 1*/
   dbpediauri = 'http://dbpedia.org/sparql'              /*-> Será tipo 2*/
+  ignes = 'http://linkeddata.ec/repositories/ignEs'                  /*-> Será tipo 3*/
+  lgdorg  = 'http://linkedgeodata.org/sparql'            /*-> Será tipo 4*/
 
   endpointuri = this.geoecuri
   constructor(private http: HttpClient ) { }
@@ -66,22 +68,30 @@ export class AppService {
   getFromTripleStore(endpointType, param) {
     let headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/ld+json'
+      Accept: 'application/ld+json'
     });
 
     const params = new HttpParams()
       .set('query', param)
+
     const httpOptions: { headers; observe; } = {
       headers: new HttpHeaders({
         Accept: 'application/ld+json'
       }),
       observe: 'response',
     };
-    if (endpointType==1)
+    if (endpointType==1) {
       return this.http.get(this.geoecuri, {params, headers: headers});
-    else
-    if (endpointType==2)
+    } else
+    if (endpointType==2) {
       return this.http.get(this.dbpediauri, {params, headers: headers});
+    } else
+    if (endpointType==3) {
+      return this.http.get(this.ignes, {params, headers: headers});
+    } else
+    if (endpointType==4) {
+      return this.http.get(this.lgdorg, {params, headers: headers});
+    }
 
   }
 

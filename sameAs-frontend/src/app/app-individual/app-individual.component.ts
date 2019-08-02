@@ -74,71 +74,131 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
       });
   }
   loadFullData(fulldata) {
-    const context = {
-      foaf: 'http://xmlns.com/foaf/0.1/',
-      rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
-      geoec: 'http://linkeddata.ec/ontology#',
-      geo: 'http://www.opengis.net/ont/geosparql#',
-      schema: 'http://schema.org/',
-      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-      dbpedia: 'http://dbpedia.org/ontology/',
-      dbpediaproperty: 'http://dbpedia.org/property/',
-      wgs84: 'http://www.w3.org/2003/01/geo/wgs84_pos#',
-      owl: 'http://www.w3.org/2002/07/owl#sameAs',
-      prov: 'http://www.w3.org/ns/prov#',
-      geoecresource: 'http://linkeddata.ec/resource/',
-      dct: 'http://purl.org/dc/terms/',
-    };
-    const prefix = ''
-      + ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
-      + ' PREFIX geoec: <http://linkeddata.ec/ontology#> '
-      + ' PREFIX geo: <http://www.opengis.net/ont/geosparql#> '
-      + ' PREFIX schema: <http://schema.org/> '
-      + ' PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> '
-      + ' PREFIX dbpedia: <http://dbpedia.org/ontology/> '
-      + ' PREFIX dbpediaproperty: <http://dbpedia.org/property/> '
-      + ' PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#> '
-      + ' PREFIX owl: <http://www.w3.org/2002/07/owl#> '
-      + ' PREFIX prov: <http://www.w3.org/ns/prov#> '
-      + ' PREFIX geoecresource: <http://linkeddata.ec/resource/>'
-      + ' PREFIX dct: <http://purl.org/dc/terms/> '
+    let paraconexion;
+    paraconexion = this.getSelectedEndpointData(fulldata[0]['uri_a']);
+    this.loadfullDataFromURI(paraconexion[0], paraconexion[1], paraconexion[2], paraconexion[3], paraconexion[4]);
+    paraconexion = this.getSelectedEndpointData(fulldata[0]['uri_b']);
+    this.loadfullDataFromURI(paraconexion[0], paraconexion[1], paraconexion[2], paraconexion[3], paraconexion[4]);
 
-    const geoecQuery = prefix + ' CONSTRUCT { ' +
-      ' <{0}> rdfs:label ?label. ' +
-      ' <{0}> rdf:type ?types. ' +
-      ' <{0}> geo:asWKT ?wkt. ' +
-      '} ' +
-      'WHERE { ' +
-      ' <{0}> rdfs:label ?label. ' +
-      ' OPTIONAL { ' +
-      '   <{0}> rdf:type ?types. ' +
-      '   <{0}> geo:hasDefaultGeometry  ?geo. ' +
-      '   ?geo geo:asWKT ?wkt. }' +
-      ' FILTER ( lang(?label) = "es" ) .' +
-      ' } limit 100 '
-    const dbpediaQuery = prefix + ' CONSTRUCT { ' +
-      ' <{0}> rdfs:label ?label. ' +
-      ' <{0}> rdf:type ?types. ' +
-      ' <{0}> dbpedia:abstract ?abstract.' +
-      ' <{0}> dbpedia:country ?country.' +
-      ' <{0}> wgs84:geometry ?geo. ' +
-      '} ' +
-      ' WHERE { ' +
-      ' <{0}> rdfs:label ?label. ' +
-      ' Optional { <{0}> rdf:type ?types. }' +
-      ' Optional { <{0}> dbpedia:abstract ?abstract. }' +
-      ' Optional { <{0}> dbpedia:country ?country. }' +
-      ' Optional { <{0}> wgs84:geometry ?geo. } ' +
-      ' FILTER ( lang(?label) = "es" || lang(?abstract) = "en" ) .' +
-      ' FILTER ( lang(?abstract) = "es" || lang(?abstract) = "en" ) .' +
-      '} limit 100 '
-
-    this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_a'], geoecQuery, 1);
-    this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_b'], dbpediaQuery, 2);
 
   }
+getSelectedEndpointData(uri) {
+  const context = {
+    foaf: 'http://xmlns.com/foaf/0.1/',
+    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    geoec: 'http://linkeddata.ec/ontology#',
+    geo: 'http://www.opengis.net/ont/geosparql#',
+    schema: 'http://schema.org/',
+    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+    dbpedia: 'http://dbpedia.org/ontology/',
+    dbpediaproperty: 'http://dbpedia.org/property/',
+    wgs84: 'http://www.w3.org/2003/01/geo/wgs84_pos#',
+    owl: 'http://www.w3.org/2002/07/owl#sameAs',
+    prov: 'http://www.w3.org/ns/prov#',
+    geoecresource: 'http://linkeddata.ec/resource/',
+    dct: 'http://purl.org/dc/terms/',
+    lgdorg: 'http://linkedgeodata.org/ontology/'
+  };
+  const prefix = ''
+    + ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+    + ' PREFIX geoec: <http://linkeddata.ec/ontology#> '
+    + ' PREFIX geo: <http://www.opengis.net/ont/geosparql#> '
+    + ' PREFIX schema: <http://schema.org/> '
+    + ' PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> '
+    + ' PREFIX dbpedia: <http://dbpedia.org/ontology/> '
+    + ' PREFIX dbpediaproperty: <http://dbpedia.org/property/> '
+    + ' PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#> '
+    + ' PREFIX owl: <http://www.w3.org/2002/07/owl#> '
+    + ' PREFIX prov: <http://www.w3.org/ns/prov#> '
+    + ' PREFIX geoecresource: <http://linkeddata.ec/resource/>'
+    + ' PREFIX dct: <http://purl.org/dc/terms/> '
+    + ' PREFIX lgdorg: <http://linkedgeodata.org/ontology/>'
 
-  loadfullDataFromURI(prefix, context, uriResource, query, endpointType)
+  const geoecQuery = prefix + ' CONSTRUCT { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' <{0}> rdf:type ?types. ' +
+    ' <{0}> geo:asWKT ?wkt. ' +
+    '} ' +
+    'WHERE { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' OPTIONAL { ' +
+    '   <{0}> rdf:type ?types. ' +
+    '   <{0}> geo:hasDefaultGeometry  ?geo. ' +
+    '   ?geo geo:asWKT ?wkt. }' +
+    ' FILTER ( lang(?label) = "es" ) .' +
+    ' } limit 100 '
+  const dbpediaQuery = prefix + ' CONSTRUCT { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' <{0}> rdf:type ?types. ' +
+    ' <{0}> dbpedia:abstract ?abstract.' +
+    ' <{0}> dbpedia:country ?country.' +
+    ' <{0}> wgs84:geometry ?geo. ' +
+    '} ' +
+    ' WHERE { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' Optional { <{0}> rdf:type ?types. }' +
+    ' Optional { <{0}> dbpedia:abstract ?abstract. }' +
+    ' Optional { <{0}> dbpedia:country ?country. }' +
+    ' Optional { <{0}> wgs84:geometry ?geo. } ' +
+    ' FILTER ( lang(?label) = "es" || lang(?abstract) = "en" ) .' +
+    ' FILTER ( lang(?abstract) = "es" || lang(?abstract) = "en" ) .' +
+    '} limit 100 ';
+  const ignQuery = prefix + ' CONSTRUCT { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' <{0}> rdf:type ?types. ' +
+    ' <{0}> geo:asWKT ?wkt. ' +
+    '} ' +
+    'WHERE { ' +
+    ' OPTIONAL { <{0}> dct:title ?label. FILTER ( lang(?label) = "es" ) . }' +
+    ' OPTIONAL { <{0}> rdf:type ?types. }' +
+    ' OPTIONAL { <{0}> geo:hasGeometry  ?geo. ' +
+    '             ?geo geo:asWKT ?wkt. }' +
+    ' } limit 100 '
+  const lgdorgQuery = prefix + ' CONSTRUCT { ' +
+    ' <{0}> rdfs:label ?label. ' +
+    ' <{0}> lgdorg:source ?source. ' +
+    ' <{0}> rdf:type ?types. ' +
+    ' <{0}> geo:asWKT ?wkt. ' +
+    '} ' +
+    'WHERE { ' +
+    ' OPTIONAL { <{0}> rdfs:label ?label. FILTER ( lang(?label) = "es" ) } ' +
+    ' OPTIONAL {  <{0}> rdf:type ?types. }' +
+    ' OPTIONAL {  <{0}> lgdorg:source ?source. }' +
+    ' OPTIONAL {  <{0}> <http://geovocab.org/geometry#geometry>  ?geo. ' +
+    '             ?geo geo:asWKT ?wkt. }' +
+    ' } limit 100 '
+  var data = [];
+  if (uri.includes('linkeddata.ec')) {
+    data.push(uri)
+    data.push(prefix);
+    data.push(context);
+    data.push(geoecQuery);
+    data.push(1);
+  }
+  if (uri.includes('dbpedia')) {
+    data.push(uri)
+    data.push(prefix);
+    data.push(context);
+    data.push(dbpediaQuery);
+    data.push(2);
+    }
+  if (uri.includes('ign')) {
+    data.push(uri)
+    data.push(prefix);
+    data.push(context);
+    data.push(ignQuery);
+    data.push(3);
+  }
+  if (uri.includes('linkedgeodata')) {
+    data.push(uri)
+    data.push(prefix);
+    data.push(context);
+    data.push(lgdorgQuery);
+    data.push(4);
+  }
+  return data;
+}
+  loadfullDataFromURI(uriResource, prefix, context , query, endpointType)
   {
     this.querystring = this.appser.stringFormat(query, uriResource)
     this.appser.getFromTripleStore(endpointType, this.querystring).subscribe(async results => {
@@ -168,8 +228,8 @@ export class AppIndividualComponent implements OnInit, OnChanges, DoCheck {
           if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
             datosauxgeo = model['value'];
             console.log(datosauxgeo)
-            this.mapc.plotWKTB(model['value']);
-            this.mapc.dibujar();
+            this.mapc.prepareFeature(model['value']);
+            this.mapc.drawFeature();
           }
           if (model['property'] == "rdfs:label") {
 

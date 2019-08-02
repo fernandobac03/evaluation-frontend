@@ -89,6 +89,17 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/not-found/not-found.component.html":
+/*!******************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/not-found/not-found.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div style=\"text-align: center\">\n<div>\n  <h3>Página no encontrada.</h3>\n</div>\n<div>\n  <h3>Para iniciar una evaluación, por favor diríjase a la siguiente página:</h3>\n    <h3><a href=\"http://linkeddata.ec/appevaluation\">http://linkeddata.ec/appevaluation</a></h3>\n</div>\n</div>\n"
+
+/***/ }),
+
 /***/ "./src/app/app-evaluation/app-evaluation.component.css":
 /*!*************************************************************!*\
   !*** ./src/app/app-evaluation/app-evaluation.component.css ***!
@@ -274,6 +285,13 @@ var AppIndividualComponent = /** @class */ (function () {
         });
     };
     AppIndividualComponent.prototype.loadFullData = function (fulldata) {
+        var paraconexion;
+        paraconexion = this.getSelectedEndpointData(fulldata[0]['uri_a']);
+        this.loadfullDataFromURI(paraconexion[0], paraconexion[1], paraconexion[2], paraconexion[3], paraconexion[4]);
+        paraconexion = this.getSelectedEndpointData(fulldata[0]['uri_b']);
+        this.loadfullDataFromURI(paraconexion[0], paraconexion[1], paraconexion[2], paraconexion[3], paraconexion[4]);
+    };
+    AppIndividualComponent.prototype.getSelectedEndpointData = function (uri) {
         var context = {
             foaf: 'http://xmlns.com/foaf/0.1/',
             rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
@@ -288,6 +306,7 @@ var AppIndividualComponent = /** @class */ (function () {
             prov: 'http://www.w3.org/ns/prov#',
             geoecresource: 'http://linkeddata.ec/resource/',
             dct: 'http://purl.org/dc/terms/',
+            lgdorg: 'http://linkedgeodata.org/ontology/'
         };
         var prefix = ''
             + ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
@@ -301,7 +320,8 @@ var AppIndividualComponent = /** @class */ (function () {
             + ' PREFIX owl: <http://www.w3.org/2002/07/owl#> '
             + ' PREFIX prov: <http://www.w3.org/ns/prov#> '
             + ' PREFIX geoecresource: <http://linkeddata.ec/resource/>'
-            + ' PREFIX dct: <http://purl.org/dc/terms/> ';
+            + ' PREFIX dct: <http://purl.org/dc/terms/> '
+            + ' PREFIX lgdorg: <http://linkedgeodata.org/ontology/>';
         var geoecQuery = prefix + ' CONSTRUCT { ' +
             ' <{0}> rdfs:label ?label. ' +
             ' <{0}> rdf:type ?types. ' +
@@ -331,10 +351,62 @@ var AppIndividualComponent = /** @class */ (function () {
             ' FILTER ( lang(?label) = "es" || lang(?abstract) = "en" ) .' +
             ' FILTER ( lang(?abstract) = "es" || lang(?abstract) = "en" ) .' +
             '} limit 100 ';
-        this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_a'], geoecQuery, 1);
-        this.loadfullDataFromURI(prefix, context, fulldata[0]['uri_b'], dbpediaQuery, 2);
+        var ignQuery = prefix + ' CONSTRUCT { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' <{0}> rdf:type ?types. ' +
+            ' <{0}> geo:asWKT ?wkt. ' +
+            '} ' +
+            'WHERE { ' +
+            ' OPTIONAL { <{0}> dct:title ?label. FILTER ( lang(?label) = "es" ) . }' +
+            ' OPTIONAL { <{0}> rdf:type ?types. }' +
+            ' OPTIONAL { <{0}> geo:hasGeometry  ?geo. ' +
+            '             ?geo geo:asWKT ?wkt. }' +
+            ' } limit 100 ';
+        var lgdorgQuery = prefix + ' CONSTRUCT { ' +
+            ' <{0}> rdfs:label ?label. ' +
+            ' <{0}> lgdorg:source ?source. ' +
+            ' <{0}> rdf:type ?types. ' +
+            ' <{0}> geo:asWKT ?wkt. ' +
+            '} ' +
+            'WHERE { ' +
+            ' OPTIONAL { <{0}> rdfs:label ?label. FILTER ( lang(?label) = "es" ) } ' +
+            ' OPTIONAL {  <{0}> rdf:type ?types. }' +
+            ' OPTIONAL {  <{0}> lgdorg:source ?source. }' +
+            ' OPTIONAL {  <{0}> <http://geovocab.org/geometry#geometry>  ?geo. ' +
+            '             ?geo geo:asWKT ?wkt. }' +
+            ' } limit 100 ';
+        var data = [];
+        if (uri.includes('linkeddata.ec')) {
+            data.push(uri);
+            data.push(prefix);
+            data.push(context);
+            data.push(geoecQuery);
+            data.push(1);
+        }
+        if (uri.includes('dbpedia')) {
+            data.push(uri);
+            data.push(prefix);
+            data.push(context);
+            data.push(dbpediaQuery);
+            data.push(2);
+        }
+        if (uri.includes('ign')) {
+            data.push(uri);
+            data.push(prefix);
+            data.push(context);
+            data.push(ignQuery);
+            data.push(3);
+        }
+        if (uri.includes('linkedgeodata')) {
+            data.push(uri);
+            data.push(prefix);
+            data.push(context);
+            data.push(lgdorgQuery);
+            data.push(4);
+        }
+        return data;
     };
-    AppIndividualComponent.prototype.loadfullDataFromURI = function (prefix, context, uriResource, query, endpointType) {
+    AppIndividualComponent.prototype.loadfullDataFromURI = function (uriResource, prefix, context, query, endpointType) {
         var _this = this;
         this.querystring = this.appser.stringFormat(query, uriResource);
         this.appser.getFromTripleStore(endpointType, this.querystring).subscribe(function (results) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
@@ -367,8 +439,8 @@ var AppIndividualComponent = /** @class */ (function () {
                                 if (model['property'] == "geo:asWKT" || model['property'] == "wgs84:geometry") {
                                     datosauxgeo = model['value'];
                                     console.log(datosauxgeo);
-                                    this.mapc.plotWKTB(model['value']);
-                                    this.mapc.dibujar();
+                                    this.mapc.prepareFeature(model['value']);
+                                    this.mapc.drawFeature();
                                 }
                                 if (model['property'] == "rdfs:label") {
                                     this.labels.push(model['value'].toUpperCase());
@@ -479,11 +551,11 @@ var AppMapComponent = /** @class */ (function () {
         this.features = new ol_Collection_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
         this.current_shape = "point";
         this.fill = new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Fill"]({
-            color: 'rgba(180, 145, 4,0.7)'
+            color: 'rgba(180, 145, 4,0.6)'
         });
         this.stroke = new ol_style_js__WEBPACK_IMPORTED_MODULE_9__["Stroke"]({
             color: '#b49104',
-            width: 2
+            width: 5
         });
         // text = new style.Text({
         //   font: '12px Calibri,sans-serif',
@@ -552,16 +624,14 @@ var AppMapComponent = /** @class */ (function () {
             style: this.styles
         });
     };
-    AppMapComponent.prototype.plotWKTB = function (WKT) {
-        console.log("From iniciar: ");
-        console.log(WKT);
+    AppMapComponent.prototype.prepareFeature = function (WKT) {
         var newFeature;
         if (!WKT || WKT === '') {
             console.log('No WKT String');
             return;
         }
         else {
-            if (!WKT.startsWith('POINT')) {
+            if (WKT.startsWith('<http://www.opengis.net/def/crs/EPSG/0/4326>')) {
                 console.log('Eliminando prefix en WKT');
                 WKT = WKT.substr(45);
             }
@@ -582,7 +652,7 @@ var AppMapComponent = /** @class */ (function () {
             this.features.push(newFeature);
         }
     };
-    AppMapComponent.prototype.dibujar = function () {
+    AppMapComponent.prototype.drawFeature = function () {
         this.vector = new ol_layer_js__WEBPACK_IMPORTED_MODULE_6__["Vector"]({
             source: new ol_source_js__WEBPACK_IMPORTED_MODULE_7__["Vector"]({ features: this.features }),
             style: this.styles
@@ -599,7 +669,7 @@ var AppMapComponent = /** @class */ (function () {
         var centery = (miny + maxy) / 2;
         this.map.setView(new ol_View_js__WEBPACK_IMPORTED_MODULE_4__["default"]({
             center: [minx, miny],
-            zoom: 13
+            zoom: 15
         }));
         //this.map.getView().fit(extent, this.map.getSize());
     };
@@ -615,92 +685,87 @@ var AppMapComponent = /** @class */ (function () {
             });
         }
     };
-    AppMapComponent.prototype.plotWKT = function (WKTA, WKTB) {
-        var newFeatureA;
-        var newFeatureB;
-        console.log('Geometría A');
-        console.log(WKTA);
-        console.log('Geometría B');
-        console.log(WKTB);
-        if (!WKTA || WKTA === '') {
-            console.log('No WKTA String');
-            return;
-        }
-        else {
-            if (!WKTA.startsWith('POINT')) {
-                console.log('Eliminando prefix en WKTA');
-                WKTA = WKTA.substr(45);
-            }
-            try {
-                newFeatureA = this.format.readFeature(WKTA.toString());
-            }
-            catch (err) {
-                console.log("No Read WKT A");
-            }
-        }
-        if (!WKTB || WKTB === '') {
-            console.log('No WKTB String');
-            return;
-        }
-        else {
-            if (!WKTB.startsWith('POINT')) {
-                console.log('Eliminando prefix en WKTB');
-                WKTB = WKTB.substr(45);
-            }
-            try {
-                newFeatureB = this.format.readFeature(WKTB.toString());
-            }
-            catch (err) {
-                console.log("No Read WKT B");
-            }
-        }
-        this.features.clear();
-        if (!newFeatureA) {
-            console.log('Geometria A no ha sido recuperada correctamente');
-            return;
-        }
-        else {
-            this.map.removeLayer(this.vector);
-            newFeatureA.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-            this.features.push(newFeatureA);
-        }
-        if (!newFeatureB) {
-            console.log('Geometría B no ha sido recuperada correctamente');
-            return;
-        }
-        else {
-            this.map.removeLayer(this.vector);
-            newFeatureB.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-            this.features.push(newFeatureB);
-        }
-        this.vector = new ol.layer.Vector({
-            source: new ol.source.Vector({ features: this.features }),
-            style: this.styles
-        });
-        this.selectGeom(this.current_shape);
-        this.map.addLayer(this.vector);
-        var derived_feature = this.features.getArray()[0];
-        var extent = derived_feature.getGeometry().getExtent();
-        var minx = derived_feature.getGeometry().getExtent()[0];
-        var miny = derived_feature.getGeometry().getExtent()[1];
-        var maxx = derived_feature.getGeometry().getExtent()[2];
-        var maxy = derived_feature.getGeometry().getExtent()[3];
-        var centerx = (minx + maxx) / 2;
-        var centery = (miny + maxy) / 2;
-        this.map.setView(new ol.View({
-            center: [minx, miny],
-            zoom: 13
-        }));
-        //this.map.getView().fit(extent, this.map.getSize());
-    };
-    AppMapComponent.prototype.mostrarEnMapa = function () {
-        var _this = this;
-        this.appser.currentWKTs.subscribe(function (WKTs) {
-            var wktA = WKTs[0];
-            var wktB = WKTs[1];
-            _this.plotWKT(wktA, wktB);
-        });
-    };
+    //   plotWKT(WKTA, WKTB) { //para dibujar dos geometrías al mismo tiempo--- no se utiliza
+    //     let newFeatureA;
+    //     let newFeatureB;
+    //     console.log('Geometría A')
+    //     console.log(WKTA)
+    //     console.log('Geometría B')
+    //     console.log(WKTB)
+    //
+    //     if (!WKTA || WKTA === '') {
+    //       console.log('No WKTA String')
+    //       return;
+    //     } else {
+    //       if (!WKTA.startsWith('POINT')){
+    //       console.log('Eliminando prefix en WKTA')
+    //       WKTA = WKTA.substr(45);
+    //       }
+    //       try {
+    //       newFeatureA = this.format.readFeature(WKTA.toString());
+    //       } catch (err) {
+    //         console.log("No Read WKT A")
+    //       }
+    //     }
+    //     if (!WKTB || WKTB === '') {
+    //       console.log('No WKTB String')
+    //       return;
+    //     } else {
+    //       if (!WKTB.startsWith('POINT')){
+    //         console.log('Eliminando prefix en WKTB')
+    //         WKTB = WKTB.substr(45);
+    //       }
+    //       try {
+    //         newFeatureB = this.format.readFeature(WKTB.toString());
+    //       } catch (err) {
+    //         console.log("No Read WKT B")
+    //       }
+    //     }
+    //     this.features.clear();
+    //     if (!newFeatureA) {
+    //     console.log('Geometria A no ha sido recuperada correctamente')
+    //     return;
+    //   } else {
+    //       this.map.removeLayer(this.vector);
+    //       newFeatureA.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+    //     this.features.push(newFeatureA);
+    //   }
+    //     if (!newFeatureB) {
+    //       console.log('Geometría B no ha sido recuperada correctamente')
+    //       return;
+    //     } else {
+    //       this.map.removeLayer(this.vector);
+    //       newFeatureB.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+    //       this.features.push(newFeatureB);
+    //     }
+    //   this.vector = new ol.layer.Vector({
+    //     source: new ol.source.Vector({features: this.features}),
+    //     style: this.styles
+    //   });
+    //   this.selectGeom(this.current_shape);
+    //   this.map.addLayer(this.vector);
+    //   var derived_feature = this.features.getArray()[0];
+    //   var extent = derived_feature.getGeometry().getExtent();
+    //   var minx = derived_feature.getGeometry().getExtent()[0];
+    //   var miny = derived_feature.getGeometry().getExtent()[1];
+    //   var maxx = derived_feature.getGeometry().getExtent()[2];
+    //   var maxy = derived_feature.getGeometry().getExtent()[3];
+    //   var centerx = (minx + maxx) / 2;
+    //   var centery = (miny + maxy) / 2;
+    //    this.map.setView(new ol.View({
+    //        center: [minx, miny],
+    //        zoom: 13
+    //      })
+    //    );
+    //   //this.map.getView().fit(extent, this.map.getSize());
+    // }
+    // mostrarEnMapa() {
+    //     this.appser.currentWKTs.subscribe(WKTs =>  {
+    //      const wktA = WKTs[0];
+    //      const wktB = WKTs[1];
+    //      this.plotWKT(wktA, wktB);
+    //     });
+    //   }
     AppMapComponent.prototype.clearMap = function () {
         this.features.clear();
         this.map.removeLayer(this.vector);
@@ -748,6 +813,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_start_app_start_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-start/app-start.component */ "./src/app/app-start/app-start.component.ts");
 /* harmony import */ var _app_evaluation_app_evaluation_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-evaluation/app-evaluation.component */ "./src/app/app-evaluation/app-evaluation.component.ts");
 /* harmony import */ var _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-final/app-final.component */ "./src/app/app-final/app-final.component.ts");
+/* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/not-found/not-found.component.ts");
+
 
 
 
@@ -772,11 +839,8 @@ var routes = [
         redirectTo: 'iniciar',
         pathMatch: 'full'
     },
-    {
-        path: '**',
-        redirectTo: 'iniciar',
-        pathMatch: 'full'
-    }
+    { path: '404', component: _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_6__["NotFoundComponent"] },
+    { path: '**', redirectTo: '/404' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -944,6 +1008,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_individual_app_individual_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-individual/app-individual.component */ "./src/app/app-individual/app-individual.component.ts");
 /* harmony import */ var _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app-final/app-final.component */ "./src/app/app-final/app-final.component.ts");
 /* harmony import */ var _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app-map/app-map.component */ "./src/app/app-map/app-map.component.ts");
+/* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/not-found/not-found.component.ts");
+
 
 
 
@@ -970,7 +1036,8 @@ var AppModule = /** @class */ (function () {
                 _app_evaluation_app_evaluation_component__WEBPACK_IMPORTED_MODULE_10__["AppEvaluationComponent"],
                 _app_individual_app_individual_component__WEBPACK_IMPORTED_MODULE_11__["AppIndividualComponent"],
                 _app_final_app_final_component__WEBPACK_IMPORTED_MODULE_12__["AppFinalComponent"],
-                _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__["AppMapComponent"]
+                _app_map_app_map_component__WEBPACK_IMPORTED_MODULE_13__["AppMapComponent"],
+                _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_14__["NotFoundComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1016,6 +1083,8 @@ var AppService = /** @class */ (function () {
         this.baseuri = 'http://201.159.223.25:8081';
         this.geoecuri = 'http://linkeddata.ec/repositories/test'; /*-> Será tipo 1*/
         this.dbpediauri = 'http://dbpedia.org/sparql'; /*-> Será tipo 2*/
+        this.ignes = 'http://linkeddata.ec/repositories/ignEs'; /*-> Será tipo 3*/
+        this.lgdorg = 'http://linkedgeodata.org/sparql'; /*-> Será tipo 4*/
         this.endpointuri = this.geoecuri;
         this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('No Persona_ID');
         this.currentMessage = this.messageSource.asObservable();
@@ -1068,7 +1137,7 @@ var AppService = /** @class */ (function () {
     AppService.prototype.getFromTripleStore = function (endpointType, param) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
             'Content-type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/ld+json'
+            Accept: 'application/ld+json'
         });
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
             .set('query', param);
@@ -1078,10 +1147,18 @@ var AppService = /** @class */ (function () {
             }),
             observe: 'response',
         };
-        if (endpointType == 1)
+        if (endpointType == 1) {
             return this.http.get(this.geoecuri, { params: params, headers: headers });
-        else if (endpointType == 2)
+        }
+        else if (endpointType == 2) {
             return this.http.get(this.dbpediauri, { params: params, headers: headers });
+        }
+        else if (endpointType == 3) {
+            return this.http.get(this.ignes, { params: params, headers: headers });
+        }
+        else if (endpointType == 4) {
+            return this.http.get(this.lgdorg, { params: params, headers: headers });
+        }
     };
     AppService.prototype.changeMessage = function (message) {
         this.messageSource.next(message);
@@ -1119,6 +1196,51 @@ var AppService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], AppService);
     return AppService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/not-found/not-found.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/not-found/not-found.component.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/not-found/not-found.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/not-found/not-found.component.ts ***!
+  \**************************************************/
+/*! exports provided: NotFoundComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotFoundComponent", function() { return NotFoundComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var NotFoundComponent = /** @class */ (function () {
+    function NotFoundComponent() {
+    }
+    NotFoundComponent.prototype.ngOnInit = function () {
+    };
+    NotFoundComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-not-found',
+            template: __webpack_require__(/*! raw-loader!./not-found.component.html */ "./node_modules/raw-loader/index.js!./src/app/not-found/not-found.component.html"),
+            styles: [__webpack_require__(/*! ./not-found.component.css */ "./src/app/not-found/not-found.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], NotFoundComponent);
+    return NotFoundComponent;
 }());
 
 
