@@ -23,7 +23,7 @@
     "@types/jsonld": "github:types/jsonld",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
-    "jsonld": "^1.6.2",
+    "jsonld": "^8.1.0",
     "ol": "^5.3.3",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
